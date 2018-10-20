@@ -1,0 +1,7 @@
+You are vacationing at a resort - The Pinncale Hotel - with a friend. 
+	Meet people, hang out, have fun for 30ish moves
+	-People you meet will mostly be hostile to you - idea is to not let
+	the words and wants of strangers get to you
+		-People will ask you to do things for them that impede your 
+		enjoyment. Do you do what you want, or follow the wishes of others?
+		
