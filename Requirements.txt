@@ -1,0 +1,51 @@
+10/19/18
+
+-Game is to be a simple text adventure game
+-Game should be capable of accepting input and producing output
+-Incorrect input should NOT cause a crash
+-Game must be capable of restarting itself completely within itself - the player should not have to close the game to begin anew
+
+-The player
+	-Will have an ID
+	-A name
+	-An inventory
+	-A location that they are currently at
+	-Have many moves they've made
+		-A move is defined by the player changing from one locationn to another
+	-A score
+		-The player will not see this. It will be used internally to determine how well they did
+
+-Game must be able to handle point-to-point navigation
+	-Game will be made up of locations
+		-Locations have an ID,
+			-Long Description,
+			-Short Description,
+			-NPCs at that location
+			-Things to do at that location
+-Game will consist of NPCs
+	-Player must be able to have conversations with NPCs, which will be scripted
+	-NPCs must remember conversations
+	-NPCs must be able to progress in conversations and how they feel overall about the player
+	-NPCs must remember what they think of the player
+	-NPCs should be able to be moved from one location to another
+	-NPCs have
+		-An ID
+		-A name
+		-A series of scripted events dealing with them
+			-Events must be able to have prereqs before they can be triggered
+-Game will have items:
+	-Items have an ID
+	-A description
+	-A specific effect when used
+		-Items must be capable of having a prereq before they can be used
+		
+-The game must end within a certain time limit
+	-This will be determined by the amount of moves a player has made
+
+-End conditions will be based on player score
+	-Did they do whatever they wanted, or complete NPC tasks?
+
+-The player should be able to find out more about a location by examining it. This will reveal
+	-What things they can use at the location
+	-Who they can talk to
+	-Where they can go to from that location
