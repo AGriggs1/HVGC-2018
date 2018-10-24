@@ -1,0 +1,10 @@
+Locale
+
++ID:int
++sLongDesc:string
++sShortDesc:string
++sExamineDesc:string
++tItems:string[]
+
++RemoveItem(sItem:string):string
++AddItem(sItem:string):boolean
