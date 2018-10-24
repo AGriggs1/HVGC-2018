@@ -1,0 +1,8 @@
+NPC
+
+-ID:int
++sDescription:string
++iLocale
++mDialogue:string[][]
+
++NPC(iNPC:ID)
