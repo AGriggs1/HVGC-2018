@@ -1,0 +1,12 @@
+Player
+
+-ID:int
++sName:string
++iMoves:int
++iScore:int
++tInventory:string[]
++iLocale:int
+
++Player(iPlayer:ID)
+	
+
