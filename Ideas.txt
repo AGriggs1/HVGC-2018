@@ -4,4 +4,21 @@ You are vacationing at a resort - The Pinncale Hotel - with a friend.
 	the words and wants of strangers get to you
 		-People will ask you to do things for them that impede your 
 		enjoyment. Do you do what you want, or follow the wishes of others?
-		
+
+10/25
+-Calling the hotel the Sunrise Inn
+-No friend: meet someone right away. Probably the only nice person their. They ask for your name, and that's how the player can use their own name
+-Receptionist (or whatever you call the front desk person) can't find your reservation in the system. Spelling with name? Who knows (making the spelling error thing might be
+too hard to implement). Gets snappy with you
+-Family arguing in the parking lot
+	-Father forget key item at home.
+	-Mother upset.
+	-Daughter won't stop whining.
+	-No interaction beyond this for now
+-Bellhop refuses to help with your bags (good thing you packed lightly!)
+-Elevator initially out of order. Room not on ground floor (probably not implement former, I don't want to make this too long)
+-Cafe has man on phone call. Tells you to sod off.
+-Arcade has kid who won't talk to you until you have a certain item. 
+-Hotel lounge (not on map, probably be in the lobby) has elderly lady. Very demanding, talks a lot.
+-Hotel Entrance: Young woman, complains a lot (especially the bell hop). Asks you to take her bags to her room.	
+-Cafe: Server refuses to serve you until you bring an order to someone at the pool (will hammer this out)
