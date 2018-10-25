@@ -15,6 +15,18 @@ pEntrance = Locale(2, "You reach the entrance to the hotel. You are eager to che
 pLobby = Locale(3, "You enter the hotel lobby. Quaint.", "You are in the hotel lobby.", "Like it's name, the lobby of the hotel is themed with a tropical mindset. It's a bit on the cheesy side, actually.", [])
 pFrDesk = Locale(4, "You make your way towards the front desk, the base of which is painted with light-blue wave crests.", "You are at the front desk", "", ["Pen"])
 pCafe = Locale(5, "You head into the hotel cafe. The smell of coffee overwhelms you.", "You are in the cafe", "The cafe has a small-town coffee shop vibe. It's a nice change from the tropical one, that's for sure!", [])
+
+
+#Define the Navigation Matrix
+mNavigator = [
+    #North, South, East, West
+    [None, None, None, pParkingW], #------ParkingE
+    [pEntrance, None, pParkingE, None], #-ParkingW
+    [pLobby, pParkingW, None, None], #----Entrance
+    [pFrDesk, pEntrance, pCafe, None], #---Lobby
+    [None, pLobby, None, None], #---------FrDesk
+    [None, None, None, pLobby] #----------Cafe
+        ]
 ####################
 ##UTILITY FUNCTIONS
 ####################
@@ -49,14 +61,20 @@ def prompt(sMessage):
 ##Init
 ##Initialization function. Runs at game start
 ##########
+#Initialize the player
+Pan = Player()
 def Init():
     copyright(False)
-    #Initialize the player
-    Pan = Player()
+    
     print("\nIt's that time of year again. The sun's rays rain down on you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
     prompt(gCont)
     print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at the nice, but humble, the Sunrise Hotel. Ah.\n")
     prompt(gCont)
     print(pParkingE.LongDesc)
+
+def Game():
+    bGame = True;
+    
+    
 Init()
 
