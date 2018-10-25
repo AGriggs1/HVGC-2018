@@ -4,6 +4,8 @@
 
 from Player import *
 from Locale import *
+
+gCont = "continue"
 ####################
 ##UTILITY FUNCTIONS
 ####################
@@ -23,6 +25,15 @@ def copyright(bEndGame):
         if "y" in sInput: return True
         return False
     print(sMessage)
+#End copyright
+#####################
+##Prompt
+##Used to stop pause the game and wait for the player to continue
+#####################
+def prompt(sMessage):
+    input("Print enter to " + sMessage)
+#End prompt
+
         
 
 ##########
@@ -31,8 +42,11 @@ def copyright(bEndGame):
 ##########
 def Init():
     copyright(False)
+    #Initialize the player
     Pan = Player()
-    print(Pan.Name)
-    
+    print("\nIt's that time of year again. The sun's rays rain down on you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
+    prompt(gCont)
+    print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at a humble hotel, the Sunrise Inn. Ah.\n")
+    prompt(gCont)
 Init()
 
