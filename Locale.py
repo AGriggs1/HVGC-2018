@@ -11,7 +11,7 @@ class Locale:
         #We need to create a new table for the items
         #Doing self.Items = tItems creats a reference
         self.Items = []
-        for sItem in tItems: Items.append(sItem)
+        for sItem in tItems: self.Items.append(sItem)
     #End Constructor
 
     #TODO: AddItem, RemoveItem
