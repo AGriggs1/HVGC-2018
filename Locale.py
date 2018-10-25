@@ -8,6 +8,7 @@ class Locale:
         self.ID = ID
         self.LongDesc = sLongDesc
         self.ShortDesc = sShortDesc
+        self.Visited = False
         #We need to create a new table for the items
         #Doing self.Items = tItems creats a reference
         self.Items = []
