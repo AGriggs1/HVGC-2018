@@ -2,10 +2,17 @@
 #HVGC 2018 Game
 #Main
 
+from Player import *
+from Locale import *
 ####################
 ##UTILITY FUNCTIONS
 ####################
 
+########################
+##copyright
+##Prints a small blurb for the game
+##Also used on game overs. Allows the player to decide if they want to restart or not
+########################
 def copyright(bEndGame):
     sMessage = "Made for the Hudson Valley Games Coference by Anthony Griggs.\nAnthony.Griggs1@marist.edu"
     if bEndGame:
@@ -22,7 +29,10 @@ def copyright(bEndGame):
 ##Init
 ##Initialization function. Runs at game start
 ##########
-##def Init():
+def Init():
+    copyright(False)
+    Pan = Player()
+    print(Pan.Name)
     
-copyright(True)
+Init()
 
