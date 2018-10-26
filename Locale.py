@@ -8,11 +8,19 @@ class Locale:
         self.ID = ID
         self.LongDesc = sLongDesc
         self.ShortDesc = sShortDesc
+        self.Visited = False
         #We need to create a new table for the items
         #Doing self.Items = tItems creats a reference
         self.Items = []
         for sItem in tItems: self.Items.append(sItem)
     #End Constructor
+
+    def UpdateVisited(self):
+        if(not self.Visited): self.Visited = True
+
+    def GetDescription(self):
+        if self.Visited: return self.ShortDesc
+        return self.LongDesc
 
     #TODO: AddItem, RemoveItem
 
