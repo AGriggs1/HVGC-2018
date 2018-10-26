@@ -15,6 +15,9 @@ class Locale:
         for sItem in tItems: self.Items.append(sItem)
     #End Constructor
 
+    def UpdateVisited(self):
+        if(not self.Visited): self.Visited = True
+
     #TODO: AddItem, RemoveItem
 
        
