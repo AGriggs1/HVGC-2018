@@ -20,7 +20,7 @@ pRecRoom = Locale(7, "You enter what looks like to be rec room.", "You are in a 
 pElevator = Locale(8, "It's an elevator. You push the call button and step inside.", "It's an elevator.", "A latin tune is leaking from the a speaker on the ceiling.", [])
 pPool = Locale(9, "You head outside and come to a pool.", "You are at the pool.", "Very fitting, for once.", [])
 pHotub = Locale(10, "You walk along the poolside and come to a hot tub.", "You are by the hot tub", "It looks very inviting, actually!", [])
-pCabana = Locale(11, "You head towards what looks like a shop themed to by a Beach Cabana.", "You are at the cabana.", "It appears to be made out of straw and bamboo.", [])
+pCabana = Locale(11, "You head towards what looks like a shop themed to be a Beach Cabana.", "You are at the cabana.", "It appears to be made out of straw and bamboo.", [])
 pHallway2 = Locale(12, "You enter a hallway", "You are in a hallway",  "", [])
 pHallway3 = Locale(13, "You continue down the hallway", "You are in a hallway", "", [])
 pHallway4 = Locale(14, "You continue down the hallway", "You are in a hallway", "", [])
@@ -68,6 +68,11 @@ mNavigator = [
     [pBalcony, pHallway4, None, None], #-----Bedroom
     [None, pBedroom, None, None], #----------Balcony
         ]
+#To make the methods a bit easier to read, I will define constants to be used as directions
+NORTH = 0
+SOUTH = 1
+EAST = 2
+WEST = 3
 ####################
 ##UTILITY FUNCTIONS
 ####################
@@ -107,7 +112,6 @@ def move(iDirection):
         #The player can go here. Do so.
         Pan.iLocale = pLocation.ID
         Pan.Moves += 1
-        tLocations[pLocation.ID].UpdateVisited()
     else: print("You cannot go that way.")
 #End move
 
@@ -123,15 +127,24 @@ def Init():
     prompt(gCont)
     print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at the nice, but humble, the Sunrise Hotel. Ah.\n")
     prompt(gCont)
-    print(tLocations[Pan.iLocale].LongDesc)
-    move(0) #0 = North
-    move(3) #3 = West
-    prompt(gCont)
-    print(tLocations[Pan.iLocale].LongDesc)
+    
+    Game()
 
 def Game():
     bGame = True;
-    
+    while(bGame):
+        #print the location description, get a command from the player
+        sInput = input(tLocations[Pan.iLocale].GetDescription() + "\n").lower()
+        tLocations[Pan.iLocale].UpdateVisited()
+        
+        if sInput == "north": move(NORTH)
+        elif sInput == "south": move(SOUTH)
+        elif sInput == "east": move(EAST)
+        elif sInput == "west": move(WEST)
+        elif sInput == "quit": bGame = False
+
+        
+        
     
 Init()
 
