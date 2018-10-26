@@ -18,6 +18,10 @@ class Locale:
     def UpdateVisited(self):
         if(not self.Visited): self.Visited = True
 
+    def GetDescription(self):
+        if self.Visited: return self.ShortDesc
+        return self.LongDesc
+
     #TODO: AddItem, RemoveItem
 
        
