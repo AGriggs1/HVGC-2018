@@ -115,7 +115,12 @@ def move(iDirection):
         Pan.Moves += 1
     else: print("You cannot go that way.")
 #End move
-
+#####################
+##examine
+##Prints out various information about the given location, including
+## NPCs at the location
+## Things the player can do at the location
+    
 def examine(iLocale):
     pLocation = tLocations[iLocale]
     print(pLocation.ExamineDesc)
@@ -126,17 +131,30 @@ def examine(iLocale):
         if mNavigator[iLocale][i]: print("Looks like you can go " + tDirections[i] + " from here.")
     #End for 
 #End examine
-        
+############
+##reset
+##Used to initialize data
+############
+def reset():
+    for p in tLocations: p.Visited = False
+    Pan.Name = "Pan"
+    Pan.Score = 0
+    Pan.Moves = 0
+    Pan.iLocale = 0
+    Pan.Inventory = []
+#End reset
+    
 ##########
 ##Init
 ##Initialization function. Runs at game start
 ##########
 #Initialize the player
 def Init():
+    reset()
     prompt("begin")
     print("\nIt's that time of year again. The sun's rays rain down on you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
     prompt(gCont)
-    print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at the nice, but humble, the Sunrise Hotel. Ah.\n")
+    print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at the nice, but humble, Sunrise Hotel. Ah.\n")
     prompt(gCont)
     
     Game()
