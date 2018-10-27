@@ -4,6 +4,7 @@
 
 from Player import *
 from Locale import *
+from NPC import *
 
 gCont = "continue"
 Pan = Player()
@@ -17,10 +18,10 @@ pFrDesk = Locale(4, "You make your way towards the front desk, the base of which
 pCafe = Locale(5, "You head into the hotel cafe. The smell of coffee overwhelms you.", "You are in the cafe", "The cafe has a small-town coffee shop vibe. It's a nice change from the tropical one, that's for sure!", [])
 pHallway = Locale(6, "You head down a hallway.", "You are in a hallway.", "There are doors to rooms on each end. Further down the hallway is a door leading outside.", [])
 pRecRoom = Locale(7, "You enter what looks like to be rec room.", "You are in a rec room.", "Arcade machines line the wall. There is a pool table and lounge chairs litter the room. Cozy.", [])
-pElevator = Locale(8, "It's an elevator. You push the call button and step inside.", "It's an elevator.", "A latin tune is leaking from the a speaker on the ceiling.", [])
+pElevator = Locale(8, "It's an elevator. You push the call button and step inside.", "It's an elevator.", "A Latin tune is leaking from the a speaker on the ceiling.", [])
 pPool = Locale(9, "You head outside and come to a pool.", "You are at the pool.", "Very fitting, for once.", [])
 pHotub = Locale(10, "You walk along the poolside and come to a hot tub.", "You are by the hot tub", "It looks very inviting, actually!", [])
-pCabana = Locale(11, "You head towards what looks like a shop themed to be a Beach Cabana.", "You are at the cabana.", "It appears to be made out of straw and bamboo.", [])
+pCabana = Locale(11, "You head towards what looks like a shop themed to be a Beach Cabana.", "You are at the cabana.", "It appears to be made out of straw and bamboo. A familiar Latin tune is blasting from the radio.", [])
 pHallway2 = Locale(12, "You enter a hallway", "You are in a hallway",  "", [])
 pHallway3 = Locale(13, "You continue down the hallway", "You are in a hallway", "", [])
 pHallway4 = Locale(14, "You continue down the hallway", "You are in a hallway", "", [])
@@ -74,6 +75,26 @@ SOUTH = 1
 EAST = 2
 WEST = 3
 tDirections = {0:"North", 1:"South", 2:"East", 3:"West"}
+
+#Define NPCs
+pFamily = NPC(0, "Cranky Family", "You notice what appears to be a family of 4. Looks like they're arguing.", "You see the family.", 1,
+              [
+                  ["Honey, where's Jack's binky?",
+                     "It's in his diaper bag.",
+                     "And where's his diaper bag?",
+                     "I'm hungry!",
+                     "Hold on, sweety I don't know, check the trunk!",
+                     "Don't tell me you left it at the rest stop!",
+                     "Is it not there? How is that my problem? You're the one that changed him!",
+                     "Waaaaaaah!!!",
+                     "Oh, so it's my fault now? Maybe if you helped out for once we're being having this discussion!.",
+                     "I gotta go potty!",
+                     "Why does everything have to be an argument with you? Look, you take Anna to the bathroom and check in, I'll get the diaper bag.",
+                     "Yeah, sure, how about YOU take Anna to the bathroom and I'll get the diaper bag? Like I trust you!",
+                     "Here we go again with this! Whyyyy does it matter who does what?!",
+                     "It's doesn't seem like they're going to stop anytime soon..."],
+                  ["They're still going at it."]
+                ])
 ####################
 ##UTILITY FUNCTIONS
 ####################
