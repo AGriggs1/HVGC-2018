@@ -79,21 +79,21 @@ tDirections = {0:"North", 1:"South", 2:"East", 3:"West"}
 #Define NPCs
 pFamily = NPC(0, "Cranky Family", "You notice what appears to be a family of 4. Looks like they're arguing.", "You see the family.", 1,
               [
-                  ["Honey, where's Jack's binky?",
-                     "It's in his diaper bag.",
-                     "And where's his diaper bag?",
-                     "I'm hungry!",
-                     "Hold on, sweety I don't know, check the trunk!",
-                     "Don't tell me you left it at the rest stop!",
-                     "Is it not there? How is that my problem? You're the one that changed him!",
-                     "Waaaaaaah!!!",
-                     "Oh, so it's my fault now? Maybe if you helped out for once we're being having this discussion!.",
-                     "I gotta go potty!",
-                     "Why does everything have to be an argument with you? Look, you take Anna to the bathroom and check in, I'll get the diaper bag.",
-                     "Yeah, sure, how about YOU take Anna to the bathroom and I'll get the diaper bag? Like I trust you!",
-                     "Here we go again with this! Whyyyy does it matter who does what?!",
+                  ["Cranky Family: Honey, where's Jack's binky?",
+                     "Cranky Family: It's in his diaper bag.",
+                     "Cranky Family: And where's his diaper bag?",
+                     "Cranky Family: I'm hungry!",
+                     "Cranky Family: Hold on, sweety! I don't know, check the trunk!",
+                     "Cranky Family: Don't tell me you left it at the rest stop...",
+                     "Cranky Family: Is it not there? How is that my problem? You're the one that changed him!",
+                     "Cranky Family: Waaaaaaah!!!",
+                     "Cranky Family: Oh, so it's my fault now? Maybe if you helped out for once we're being having this discussion!",
+                     "Cranky Family: I gotta go potty!",
+                     "Cranky Family: Why does everything have to be an argument with you? Look, you take Anna to the bathroom and check in, I'll get the diaper bag.",
+                     "Cranky Family: Yeah, sure, how about YOU take Anna to the bathroom and I'll get the diaper bag? As if I trust you!",
+                     "Cranky Family: Here we go again with this! Whyyyy does it matter who does what?!",
                      "It's doesn't seem like they're going to stop anytime soon..."],
-                  ["They're still going at it."]
+                  ["They're still going at it. Perhaps you should stay out of this."]
                 ])
 
 tNPCs = [pFamily]
@@ -162,10 +162,16 @@ def talkTo(sPerson):
         if p.Name == sPerson:
             bFound = True
             for s in p.Dialogue[p.Progress]: input(s)
-        #end for
+            onDialogueEnd(p.ID)
+        #end if
     #end for
     if(not bFound): print("There is no " + sPerson)
 #end talkTo
+def onDialogueEnd(iNPC):
+    pNPC = tNPCs[iNPC]
+    if iNPC == 0:
+        pNPC.Progress = 1
+    
 ############
 ##reset
 ##Used to initialize data
