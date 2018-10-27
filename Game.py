@@ -89,7 +89,7 @@ def copyright(bEndGame):
         #The player has quit, or the game is over
         print("Game over! Thanks for playing!")
         #Ask if they want to play again, if not then terminate the program. Otherwise, the game will start over
-        sInput = input(sMessage + "\nPlay again? ").lower()
+        sInput = input(sMessage + "\nPlay again? Y|N").lower()
         if "y" in sInput: return True
         return False
     print(sMessage)
@@ -133,7 +133,6 @@ def examine(iLocale):
 ##########
 #Initialize the player
 def Init():
-    copyright(False)
     prompt("begin")
     print("\nIt's that time of year again. The sun's rays rain down on you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
     prompt(gCont)
@@ -141,6 +140,7 @@ def Init():
     prompt(gCont)
     
     Game()
+    return copyright(True)
 #End Init
 ###########
 ##Game
@@ -184,6 +184,6 @@ def Game():
 
         
         
-    
-Init()
+copyright(False)
+while Init(): Init()
 
