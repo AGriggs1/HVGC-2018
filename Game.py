@@ -95,6 +95,8 @@ pFamily = NPC(0, "Cranky Family", "You notice what appears to be a family of 4. 
                      "It's doesn't seem like they're going to stop anytime soon..."],
                   ["They're still going at it."]
                 ])
+
+tNPCs = [pFamily]
 ####################
 ##UTILITY FUNCTIONS
 ####################
@@ -152,6 +154,18 @@ def examine(iLocale):
         if mNavigator[iLocale][i]: print("Looks like you can go " + tDirections[i] + " from here.")
     #End for 
 #End examine
+
+def talkTo(sPerson):
+    #find the person the player requested
+    bFound = False
+    for p in tNPCs:
+        if p.Name == sPerson:
+            bFound = True
+            for s in p.Dialogue[p.Progress]: input(s)
+        #end for
+    #end for
+    if(not bFound): print("There is no " + sPerson)
+#end talkTo
 ############
 ##reset
 ##Used to initialize data
@@ -211,7 +225,13 @@ def Game():
         elif sInput == "examine": examine(Pan.iLocale)
         elif sInput == "help": print(sHelp) #Define this as a variable to keep this portion clean
         elif sInput == "moves": print(Pan.Name + " has made", Pan.Moves, "moves.\n")
-        elif sInput == "talk to": pass #This code will be more advanced. Be careful, love.
+        elif sInput == "talk to":
+            #print all of the NPCs at this location
+            print("Talk to?")
+            for p in tNPCs:
+                if p.iLocale == Pan.iLocale: print(p.Name)
+                sInput = input()
+                talkTo(sInput)
         elif sInput == "use": pass #This one will take a lot to make sure it's done right. Depends on items used
         elif sInput == "inventory":
             print("You have: ")
