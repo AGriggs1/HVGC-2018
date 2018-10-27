@@ -10,6 +10,7 @@ class Locale:
         self.ShortDesc = sShortDesc
         self.ExamineDesc = sExamineDesc
         self.Visited = False
+        self.Examined = False
         #We need to create a new table for the items
         #Doing self.Items = tItems creats a reference
         self.Items = []
