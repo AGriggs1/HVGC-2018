@@ -142,19 +142,45 @@ def Init():
     
     Game()
 #End Init
+###########
+##Game
+##Code related to actual gameplay. Handles most of io
+###########
+sHelp = ("List of commands\n"
+        "North: moves the player up laterally.\n"
+        "South: moves the player down laterally.\n"
+        "East: moves the player left laterally.\n"
+        "West: moves the player right laterally.\n"
+        "Examine: provides a better description of the area you are at, and what directions you may head in from there.\n"
+        "Help: Provides a list of valid commands. A dictionary must define a dictionary, right?\n"
+        "Moves: List the amount of moves you have made so far. A move is generally defined as changing from one location to another, but it is not limited to that.\n"
+        "Talk to: Used to interact with any people who may be in the area.\n"
+        "Use: Used to interact with things in the environment you are at.\n"
+        "Inventory: Lists any items you may be holding.\n")
 def Game():
     bGame = True;
     while(bGame):
         #print the location description, get a command from the player
         sInput = input(tLocations[Pan.iLocale].GetDescription() + "\n").lower()
         tLocations[Pan.iLocale].UpdateVisited()
-        
+        #navigation commands
         if sInput == "north": move(NORTH)
         elif sInput == "south": move(SOUTH)
         elif sInput == "east": move(EAST)
         elif sInput == "west": move(WEST)
-        elif sInput == "quit": bGame = False
+        #
         elif sInput == "examine": examine(Pan.iLocale)
+        elif sInput == "help": print(sHelp) #Define this as a variable to keep this portion clean
+        elif sInput == "moves": print(Pan.Name + " has made", Pan.Moves, "moves.\n")
+        elif sInput == "talk to": pass #This code will be more advanced. Be careful, love.
+        elif sInput == "use": pass #This one will take a lot to make sure it's done right. Depends on items used
+        elif sInput == "inventory":
+            print("You have: ")
+            for s in Pan.Inventory: print(s)
+            print()
+        #end elif
+        elif sInput == "quit": bGame = False
+        
 
         
         
