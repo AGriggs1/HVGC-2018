@@ -73,6 +73,7 @@ NORTH = 0
 SOUTH = 1
 EAST = 2
 WEST = 3
+tDirections = {0:"North", 1:"South", 2:"East", 3:"West"}
 ####################
 ##UTILITY FUNCTIONS
 ####################
@@ -88,7 +89,7 @@ def copyright(bEndGame):
         #The player has quit, or the game is over
         print("Game over! Thanks for playing!")
         #Ask if they want to play again, if not then terminate the program. Otherwise, the game will start over
-        sInput = input(sMessage + "\nPlay again? ").lower()
+        sInput = input(sMessage + "\nPlay again? Y|N").lower()
         if "y" in sInput: return True
         return False
     print(sMessage)
@@ -114,37 +115,93 @@ def move(iDirection):
         Pan.Moves += 1
     else: print("You cannot go that way.")
 #End move
-
+#####################
+##examine
+##Prints out various information about the given location, including
+## NPCs at the location
+## Things the player can do at the location
+    
+def examine(iLocale):
+    pLocation = tLocations[iLocale]
+    print(pLocation.ExamineDesc)
+    #TODO: List NPCs at this location
+    #TODO: List interactives at this location
+    #List the directions the player can go from here
+    for i in range(len(mNavigator[0])):
+        if mNavigator[iLocale][i]: print("Looks like you can go " + tDirections[i] + " from here.")
+    #End for 
+#End examine
+############
+##reset
+##Used to initialize data
+############
+def reset():
+    for p in tLocations: p.Visited = False
+    Pan.Name = "Pan"
+    Pan.Score = 0
+    Pan.Moves = 0
+    Pan.iLocale = 0
+    Pan.Inventory = []
+#End reset
+    
 ##########
 ##Init
 ##Initialization function. Runs at game start
 ##########
 #Initialize the player
 def Init():
-    copyright(False)
+    reset()
     prompt("begin")
     print("\nIt's that time of year again. The sun's rays rain down on you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
     prompt(gCont)
-    print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at the nice, but humble, the Sunrise Hotel. Ah.\n")
+    print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at the nice, but humble, Sunrise Hotel. Ah.\n")
     prompt(gCont)
     
     Game()
-
+    return copyright(True)
+#End Init
+###########
+##Game
+##Code related to actual gameplay. Handles most of io
+###########
+sHelp = ("List of commands\n"
+        "North: moves the player up laterally.\n"
+        "South: moves the player down laterally.\n"
+        "East: moves the player left laterally.\n"
+        "West: moves the player right laterally.\n"
+        "Examine: provides a better description of the area you are at, and what directions you may head in from there.\n"
+        "Help: Provides a list of valid commands. A dictionary must define a dictionary, right?\n"
+        "Moves: List the amount of moves you have made so far. A move is generally defined as changing from one location to another, but it is not limited to that.\n"
+        "Talk to: Used to interact with any people who may be in the area.\n"
+        "Use: Used to interact with things in the environment you are at.\n"
+        "Inventory: Lists any items you may be holding.\n")
 def Game():
     bGame = True;
     while(bGame):
         #print the location description, get a command from the player
         sInput = input(tLocations[Pan.iLocale].GetDescription() + "\n").lower()
         tLocations[Pan.iLocale].UpdateVisited()
-        
+        #navigation commands
         if sInput == "north": move(NORTH)
         elif sInput == "south": move(SOUTH)
         elif sInput == "east": move(EAST)
         elif sInput == "west": move(WEST)
+        #
+        elif sInput == "examine": examine(Pan.iLocale)
+        elif sInput == "help": print(sHelp) #Define this as a variable to keep this portion clean
+        elif sInput == "moves": print(Pan.Name + " has made", Pan.Moves, "moves.\n")
+        elif sInput == "talk to": pass #This code will be more advanced. Be careful, love.
+        elif sInput == "use": pass #This one will take a lot to make sure it's done right. Depends on items used
+        elif sInput == "inventory":
+            print("You have: ")
+            for s in Pan.Inventory: print(s)
+            print()
+        #end elif
         elif sInput == "quit": bGame = False
+        
 
         
         
-    
-Init()
+copyright(False)
+while Init(): Init()
 
