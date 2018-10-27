@@ -77,7 +77,7 @@ WEST = 3
 tDirections = {0:"North", 1:"South", 2:"East", 3:"West"}
 
 #Define NPCs
-pFamily = NPC(0, "Cranky Family", "You notice what appears to be a family of 4. Looks like they're arguing.", "You see the family.", 1,
+pFamily = NPC(0, "Cranky Family", "You notice what appears to be a family of 4. Looks like they're arguing.", "You see the cranky family.", 1,
               [
                   ["Cranky Family: Honey, where's Jack's binky?",
                      "Cranky Family: It's in his diaper bag.",
@@ -147,12 +147,13 @@ def move(iDirection):
 def examine(iLocale):
     pLocation = tLocations[iLocale]
     print(pLocation.ExamineDesc)
-    #TODO: List NPCs at this location
+    for p in tNPCs: print(p.LongDesc)
     #TODO: List interactives at this location
     #List the directions the player can go from here
     for i in range(len(mNavigator[0])):
         if mNavigator[iLocale][i]: print("Looks like you can go " + tDirections[i] + " from here.")
-    #End for 
+    #End for
+    tLocations[iLocale].Examined = True
 #End examine
 
 def talkTo(sPerson):
@@ -177,7 +178,11 @@ def onDialogueEnd(iNPC):
 ##Used to initialize data
 ############
 def reset():
-    for p in tLocations: p.Visited = False
+    for p in tLocations:
+        p.Visited = False
+        p.Examined = False
+    for p in tNPCs:
+        p.Progress = 0
     Pan.Name = "Pan"
     Pan.Score = 0
     Pan.Moves = 0
@@ -232,12 +237,15 @@ def Game():
         elif sInput == "help": print(sHelp) #Define this as a variable to keep this portion clean
         elif sInput == "moves": print(Pan.Name + " has made", Pan.Moves, "moves.\n")
         elif sInput == "talk to":
-            #print all of the NPCs at this location
+            #print all of the NPCs at this location IF the player examined the location
             print("Talk to?")
-            for p in tNPCs:
-                if p.iLocale == Pan.iLocale: print(p.Name)
-                sInput = input()
-                talkTo(sInput)
+            if tLocations[Pan.iLocale].Examined:
+                for p in tNPCs:
+                    if p.iLocale == Pan.iLocale: print(p.Name)
+                    sInput = input()
+                    talkTo(sInput)
+                #end for
+            #end if
         elif sInput == "use": pass #This one will take a lot to make sure it's done right. Depends on items used
         elif sInput == "inventory":
             print("You have: ")
