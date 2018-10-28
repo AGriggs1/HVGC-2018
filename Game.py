@@ -93,6 +93,7 @@ pFamily = NPC(0, "Cranky Family", "You notice what appears to be a family of 4. 
                      "Cranky Family: Yeah, sure, how about YOU take Anna to the bathroom and I'll get the diaper bag? As if I trust you!",
                      "Cranky Family: Here we go again with this! Whyyyy does it matter who does what?!",
                      "It's doesn't seem like they're going to stop anytime soon..."], #0
+                  
                   ["They're still going at it. Perhaps you should stay out of this."] #1
                 ])
 pAngryWoman = NPC(1, "Irritated Lady", "There is a woman standing by the doorway. She looks upset.", "You see the irritated lady.", 2,
@@ -103,7 +104,9 @@ pAngryWoman = NPC(1, "Irritated Lady", "There is a woman standing by the doorway
                        "Irritated Lady: My room is 301. Take my bags and don't even THINK about stealing my stuff with those grubby hands of yours!",
                        "Irritated Lady: And NO! I will not be giving you a tip! Maybe if you'd gotten here 15 miniutes earlier, but it's not my fault that this dump doesn't know to treat its patrons!",
                        "Okay then."], #0
+                      
                       ["Irritated Lady: What is taking Becka so long?! I just want to check in already so we can head out..."], #1
+                      
                       ["Irritated Lady: Oh so you finally got my bags to my room? Good for you. Look, I already said you weren't getting a tip, so I don't know why you're wasting my time. Go beg the soup kitchen for a meal, or something!"]
                        
                 ])
@@ -112,10 +115,12 @@ pBellhop = NPC(2, "Lazy Bellhop", "You notice a bellhop relaxing on a couch.", "
                [
                    ["Lazy Bellhop: If you're looking for help with your bags, don't bother asking.",
                     "Lazy Bellhop: I've got better things to do than deal with idiots who think they're sooooo special."], #0
+                   
                    ["Lazy Bellhop: Hahaha! I see that nutjob lady has you dealing with her bags!",
                     "Lazy Bellhop: Where's your self-respect? You're going to let that bat walk all over you?",
                     "Lazy Bellhop: Or maybe you think what you're doing is a good thing. Get over yourself.",
                     "Lazy Bellhop: I almost feel bad for you. Oooooh, man!"], #1
+                   
                    ["Lazy Bellhop: I almost feel bad for you. Oooooh, man!"] #2
                 ])
 
@@ -141,7 +146,9 @@ pOldLady = NPC(3, "Elderly Woman", "There is an old woman sitting in a chair.", 
                      "Elderly Woman: He truly believed that it wasn't where you went or what you did, but who you were with.",
                      "Elderly Woman: And in a way, he was right. He was absolutely right.",
                      "Elderly Woman: Deary, could you do me a favor and get me some chamomile tea from the cafe? It helps me relax! Thank you, dear!"], #0
+                    
                     ["Elderly Woman: Hello dear, did you get me my tea? These old bones need nourishment!"], #1 - repeat this will waiting for tea
+                    
                     ["Elderly Woman: Hello dear, did you get me my tea?",
                      "Elderly Woman: Thank you, honey!",
                      "Elderly Woman: Such a youngling, aren't you?",
@@ -157,6 +164,7 @@ pOldLady = NPC(3, "Elderly Woman", "There is an old woman sitting in a chair.", 
                      "Elderly Woman: I remember a time when I could dance the night away. Now, not so much.",
                      "Elderly Woman: That's just life for you. Spend your young days having fun, so you have something to look back on when you get old.",
                      "Elderly Woman: Oh, honey, this isn't chamomile tea at all! Could you take this back and get me my tea? Thank you!"], #2
+                    
                     ["Elderly Woman: Oh, you're  back! And I see you got me my tea! You're such a good dear!",
                      "Elderly Woman: We need more people like you out there in the world. I don't mean to tell you how to live your life, but do you do any volunteer work?",
                      "Elderly Woman: You should consider it. There is always someone out there that could use the helping hand of another, and unfortunately some people don't have anyone they can rely on.",
@@ -169,8 +177,10 @@ pOldLady = NPC(3, "Elderly Woman", "There is an old woman sitting in a chair.", 
                      "Elderly Woman: This one man stayed for about a year. He would be holed up in his room for most of the time. Rarely talked to anyone, wouldn't let the maids clean his room.",
                      "Elderly Woman: He was an odd fellow for sure. I wonder what ever happended to him...",
                      "Elderly Woman: Dear, could you get me more sugar for my tea? Thank you!"], #3
+                    
                     ["Elderly Woman: Thank you, dear! You've been a big help!",
                      "You're a good listener, you know that? I've been rambling for a while, so I think I'll just leave you to your business. It was nice getting to know you!"], #4
+                    
                     ["She seems to be preoccupied with a novel she's reading."] #5
                 ])
 pReceptionist = NPC(4, "Busy Receptionist", "There is a receptionist. Looks like he's in the middle of something.", "You see the busy receptionist", 4,
@@ -178,13 +188,17 @@ pReceptionist = NPC(4, "Busy Receptionist", "There is a receptionist. Looks like
                         ["Busy Receptionist: Can't you see I'm in the middle of something?!",
                          "Busy Receptionist: 'Oh, I'd like to check in!' Good for you! I'd like to not be bothered by complete morons, but I don't seem to be getting what I want, now am I?",
                          "Busy Receptionist: People these days... I'll get to you when I get to you! Got that?"], #0
+                        
                         ["Busy Receptionist: I'll get you when I get to you! Got that?"], #1
+                        
                         ["Busy Receptionist: Stop. Ringing. The Goddamn. Bell!",
                          "Busy Receptionist: What the hell do you want? To check in? Fine! At least then you'll go bother someone else.",
                          "Busy Receptionist: Your name? Come on, out with it! You've wasted enough of my time!",
                          "Busy Receptionist: Yeah, uh, I don't have you in my system. Did you book a room?",
                          "Busy Receptionist: You're not here. I don't know what to tell you. Look, it's not my fault you're an idiot. I don't have time for your nonsense. Come back later and I'll sort this out."], #2
+                        
                         ["He's ignoring you."], #3
+                        
                         ["Busy Receptionist: All right, your room is 315. Here's your key. Don't lose it, because I'm done helping you. Go bother someone else."] #4
                     ])
                          
@@ -193,29 +207,69 @@ pBarista = NPC(5, "Bored Barista", "Behind the counter is a Barista, probably. S
                    ["Bored Barista: What do you want?",
                     "Bored Barista: Nothing? Good. I was planning on taking a nap. This job sucks.",
                     "Bored Barista: You people suck."], #0
+                   
                    ["Bored Barista: What do you want? Can't you see I'm not busy?",
                     "Bored Barista: Chamomile Tea? Yeah whatever.",
                     "Bored Barista: Tea's gross.",
                     "Bored Barista: You're gross.",
                     "Bored Barista: Here's your Cham-whatever tea. Have a sub-par day."], #1
+                   
                    ["Bored Barista: Now what? What do mean I gave you the wrong tea?",
                     "Bored Barista: Are you suggesting I don't know who to do my job? How dare you!",
                     "Bored Barista: Besides, tea is tea. Why do you care?",
                     "Bored Barista: I obviously don't. Look, I'll 'make the right tea' if you can get that punk over there to leave.",
                     "Bored Barista: Dude's a serious nut job. Good luck."], #2
+                   
                    ["Bored Barista: Oh, you actually got him to leave. Nice.",
                     "Bored Barista: Well, here's your tea. If you'll excuse me, I'm going to take a nap."], #3
+                   
                    ["Bored Barista: Now what? You just what to talk? Sheesh, what a loser!"], #4
+                   
                    ["Bored Barista: More sugar? MORE SUGAR?! Why didn't you ask for more sugar when I made the damn tea?!",
                     "Bored Barista: Take your sugar and piss off, already!"], #5
+                   
                    ["Bored Barista: You're really annoying, you know that?"] #6
                 ])
+pBusinessMan = NPC(6, "Suit Guy", "There is a man in a suit sitting at one of the tables.", "You see suit guy", 5,
+                   [
+                       ["Suit Guy: Can I help you?",
+                        "Suit Guy: You just want to talk? Who the hell does that with random strangers?",
+                        "Suit Guy: I've got better things to do than chit-chat with the likes of you!",
+                        "Suit Guy: You really are an eyesore. Do me a favor and get out of my sight already."], #0
+                       
+                       ["Suit Guy: You really are the emodiment of cancer, you know that?",
+                        "Suit Guy: You eat away at others, abnormalizing their behavior until their life drains from their body.",
+                        "Suit Guy: Oh, you'd like me to leave? What are you, hotel security? You gonna kick me out because I hurt the poor baby's feewings?",
+                        "Suit Guy: Didn't think so. Well, if you're going to insist on existing then sure, I'll leave. As soon as my son finishes up in the arcade."], #1
+                       
+                       ["Suit Guy: He wants a what? Get it yourself, asshole!"], #2
+                       
+                       ["Suit Guy: Oh, you got him. Well, we're off.",
+                        "Suit Guy: Do me a favor: promise me that not only will you die soon, but that it will be a painful death. Take care, asshat."] #3
+                    ])
+pArcadeKid = NPC(7, "Arcade Kid", "There's a kid playing one of the arcade cabinents.", "You see aracde kid", 7,
+                 [
+                     ["He's ignoring you."], #0
+                     
+                     ["Arcade Kid: You're awful at that game, you know that?",
+                      "Arcade Kid: Go back to your bingo nights, you old bag."], #1
+                     
+                     ["Arcade Kid: My dad wants me?",
+                      "Arcade Kid: Tell him I want a slushie from the cabana. I'm not leaving until then.",
+                      "Arcade Kid: Oh, and how about you go talk to people your own age. People might mistake you for a pedo."], #2
+                     
+                     ["Arcade Kid: Gimmie that! See you later, loser!"] #3
+                ])
+
+                       
 tNPCs = [pFamily,
          pAngryWoman,
          pBellhop,
          pOldLady,
          pReceptionist,
-         pBarista]
+         pBarista,
+         pBusinessMan,
+         pArcadeKid]
 ####################
 ##UTILITY FUNCTIONS
 ####################
@@ -295,6 +349,7 @@ def talkTo(sPerson):
 ##onDialogue
 ##Runs whenever the player is done talking to an NPC.
 ########################
+iMovesUntilKey = 0
 def onDialogueEnd(iNPC):
     pNPC = tNPCs[iNPC]
     #Cranky Family
@@ -329,8 +384,12 @@ def onDialogueEnd(iNPC):
     #Busy Receptionist
     elif iNPC == 4:
         if pNPC.Progress == 0: pNPC.Progress = 1
-        elif pNPC.Progress == 2: pNPC.Progress = 3
-        elif pNPC.Progress == 3 and Pan.Moves > 20: pNPC.Progress = 4
+        #The player managed to get the receptionist to talk to them
+        elif pNPC.Progress == 2:
+            pNPC.Progress = 3
+            #The receptionist is 'preparing the player's room' It will take 10 moves. Therefore, try to get to this point as quickly as possible
+            iMovesUntilKey = Pan.Moves + 10
+        elif pNPC.Progress == 3 and Pan.Moves >= iMovesUntilKey: pNPC.Progress = 4
         #elif pNPC.Progress == 4: pNPC.Progress = 3
     #Bored Barista
     elif iNPC == 5:
@@ -349,6 +408,22 @@ def onDialogueEnd(iNPC):
             pNPC.Progress = 6
             #Update progress for old lady
             tNPCs[3].Progress = 4
+    #Suit Guy
+    elif iNPC == 6:
+        #Has the player progressed with Arcade Kid? This will need an extra hook in case not.
+        if pNPC.Progress == 1 and tNPCs[7].Progress == 1:
+            tNPCs[7].Progress = 2
+        #The player has completed all tasks with Suit Guy. Remove him and Arcade Kid from the map.
+        if pNPC.Progress == 3:
+            pNPC.iLocale = -1
+            tNPCs[7].iLocale = -1
+        #end if
+    #Arcade Kid
+    elif iNPC == 7:
+        #Before anything, the player must use an arcade machine for him to talk to you.
+        #That will be in a different hook.
+        #Sequence complete. He's done talking to you.
+        if iNPC.Progress == 3: pNPC.Progress = 0
     
 ############
 ##reset
@@ -374,6 +449,8 @@ def reset():
 #Initialize the player
 def Init():
     reset()
+    tNPCs[6].iLocale = 5
+    tNPCs[7].iLocale = 7
     prompt("begin")
     print("\nIt's that time of year again. The sun's rays rain down on you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
     prompt(gCont)
