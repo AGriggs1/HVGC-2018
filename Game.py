@@ -258,10 +258,23 @@ pArcadeKid = NPC(7, "Arcade Kid", "There's a kid playing one of the arcade cabin
                       "Arcade Kid: Tell him I want a slushie from the cabana. I'm not leaving until then.",
                       "Arcade Kid: Oh, and how about you go talk to people your own age. People might mistake you for a pedo."], #2
                      
-                     ["Arcade Kid: Gimmie that! See you later, loser!"] #3
+                     ["Arcade Kid: Gimmie that! See you later, loser!",
+                      "And with that, he runs off."] #3
                 ])
-
-                       
+pPoolGirl = NPC(8, "Relaxing Woman", "You notice a woman relaxing in a lounge chair.", "You see the relaxing woman.", 9,
+                [
+                    ["Relaxing Woman: Ew, you're blocking out the sun with your gross body!",
+                     "Relaxing Woman: Get out of here, creep!"], #0
+                    ["Relaxing Woman: That gordo wants what? Gross!",
+                     "Relaxing Woman: Tell him to get eff himself, causes that's the only way he's ever gonna get any!"]
+                ])
+pLargeMan = NPC(9, "Large Man", "You notice a large man in the hot tub.", "You see the large man.", 10,
+                [
+                    ["Large Man: Eh, eh, eh! This is MY hot tub time!",
+                     "Large Man: Back off, bub! Tell you what: You can stay, if you get that babe in the lounge chair's number for me. Heh, heh, heh!"], #0
+                    ["Large Man: Whaddya mean, she's not interested in me? You probably said something to mess all up, idiot!",
+                     "Large Man: This is what I get for trusting someone as dumb as you!"] #1
+                ])
 tNPCs = [pFamily,
          pAngryWoman,
          pBellhop,
@@ -269,7 +282,9 @@ tNPCs = [pFamily,
          pReceptionist,
          pBarista,
          pBusinessMan,
-         pArcadeKid]
+         pArcadeKid,
+         pPoolGirl,
+         pLargeMan]
 ####################
 ##UTILITY FUNCTIONS
 ####################
@@ -355,15 +370,21 @@ def onDialogueEnd(iNPC):
     #Cranky Family
     if iNPC == 0:
         pNPC.Progress = 1
+        
+        
     #Angry Woman
     elif iNPC == 1:
         if pNPC.Progress == 0: pNPC.Progress = 1
         #TODO: Logic for once player drops off luggage at NPC's room. We'll need a hook for that.
+        
+        
     #Lazy Bellhop
     elif iNPC == 2:
         #Has the player talked to the Angry Woman?
         if pNPC.Progress == 0 and tNPCs[1].Progress == 1: pNPC.Progress = 1
         elif pNPC.Progress == 1: pNPC.Progress = 2
+        
+        
     #Old Lady
     elif iNPC == 3:
         if pNPC.Progress == 0:
@@ -381,6 +402,8 @@ def onDialogueEnd(iNPC):
             pass   
         else:
             pNPC.Progress = 5
+            
+            
     #Busy Receptionist
     elif iNPC == 4:
         if pNPC.Progress == 0: pNPC.Progress = 1
@@ -391,6 +414,8 @@ def onDialogueEnd(iNPC):
             iMovesUntilKey = Pan.Moves + 10
         elif pNPC.Progress == 3 and Pan.Moves >= iMovesUntilKey: pNPC.Progress = 4
         #elif pNPC.Progress == 4: pNPC.Progress = 3
+        
+        
     #Bored Barista
     elif iNPC == 5:
         #Old Lady requested tea
@@ -398,16 +423,21 @@ def onDialogueEnd(iNPC):
             pNPC.Progress = 0
             #Update progress for old lady
             tNPCs[3].Progress = 2
-        #end if
-        if pNPC.Progress == 3:
+        #Barista requests that you get rid of Suit guy
+        elif pNPC.Progress == 2:
+            tNPCs[6].Progress == 1
+        #Player got rid of Suit guy
+        elif pNPC.Progress == 3:
             pNPC.Progress = 4
             #Update progress for old lady
             tNPCs[3].Progress = 3
-        #end if
+        #Wants sugar
         elif pNPC.Progress == 5:
             pNPC.Progress = 6
             #Update progress for old lady
             tNPCs[3].Progress = 4
+            
+            
     #Suit Guy
     elif iNPC == 6:
         #Has the player progressed with Arcade Kid? This will need an extra hook in case not.
@@ -417,13 +447,29 @@ def onDialogueEnd(iNPC):
         if pNPC.Progress == 3:
             pNPC.iLocale = -1
             tNPCs[7].iLocale = -1
+            tNPCs[5].Progress = 3
         #end if
+
+            
     #Arcade Kid
     elif iNPC == 7:
         #Before anything, the player must use an arcade machine for him to talk to you.
         #That will be in a different hook.
         #Sequence complete. He's done talking to you.
-        if iNPC.Progress == 3: pNPC.Progress = 0
+        if pNPC.Progress == 3: pNPC.Progress = 0
+
+        
+    #Pool Girl
+    elif iNPC == 8:
+        #Told off large man?
+        if iNPC.Progress == 1: tNPCS[9].Progress = 1
+
+        
+    #Large man
+    elif iNPC == 9:
+        #Wants Pool Girl's number
+        if iNPC.Progress == 0: tNPCS[8].Progress = 1
+    
     
 ############
 ##reset
