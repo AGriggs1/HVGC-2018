@@ -106,7 +106,7 @@ pAngryWoman = NPC(1, "Irritated Lady", "There is a woman standing by the doorway
                       ["Irritated Lady: What is taking Becka so long?! I just want to check in already so we can head out..."], #1
                       ["Irritated Lady: Oh so you finally got my bags to my room? Good for you. Look, I already said you weren't getting a tip, so I don't know why you're wasting my time. Go beg the soup kitchen for a meal, or something!"]
                        
-                    ])
+                ])
 
 pBellhop = NPC(2, "Lazy Bellhop", "You notice a bellhop relaxing on a couch.", "You see the lazy bellhop.", 3,
                [
@@ -117,9 +117,9 @@ pBellhop = NPC(2, "Lazy Bellhop", "You notice a bellhop relaxing on a couch.", "
                     "Lazy Bellhop: Or maybe you think what you're doing is a good thing. Get over yourself.",
                     "Lazy Bellhop: I almost feel bad for you. Oooooh, man!"], #1
                    ["Lazy Bellhop: I almost feel bad for you. Oooooh, man!"] #2
-                   ])
+                ])
 
-pOldLady = NPC(3, "Elderly Woman", "There is an old woman relaxing in a chair.", "You see the elderly woman", 3,
+pOldLady = NPC(3, "Elderly Woman", "There is an old woman sitting in a chair.", "You see the elderly woman", 3,
                 [
                     ["Elderly Woman: Oh, hello deary! What brings you out here to a place like this?",
                      "Elderly Woman: Me, I'm just relaxing, taking a staycation, if you will. It's been a tradition to come here with my dearest Bernie.",
@@ -172,12 +172,50 @@ pOldLady = NPC(3, "Elderly Woman", "There is an old woman relaxing in a chair.",
                     ["Elderly Woman: Thank you, dear! You've been a big help!",
                      "You're a good listener, you know that? I've been rambling for a while, so I think I'll just leave you to your business. It was nice getting to know you!"], #4
                     ["She seems to be preoccupied with a novel she's reading."] #5
+                ])
+pReceptionist = NPC(4, "Busy Receptionist", "There is a receptionist. Looks like he's in the middle of something.", "You see the busy receptionist", 4,
+                    [
+                        ["Busy Receptionist: Can't you see I'm in the middle of something?!",
+                         "Busy Receptionist: 'Oh, I'd like to check in!' Good for you! I'd like to not be bothered by complete morons, but I don't seem to be getting what I want, now am I?",
+                         "Busy Receptionist: People these days... I'll get to you when I get to you! Got that?"], #0
+                        ["Busy Receptionist: I'll get you when I get to you! Got that?"], #1
+                        ["Busy Receptionist: Stop. Ringing. The Goddamn. Bell!",
+                         "Busy Receptionist: What the hell do you want? To check in? Fine! At least then you'll go bother someone else.",
+                         "Busy Receptionist: Your name? Come on, out with it! You've wasted enough of my time!",
+                         "Busy Receptionist: Yeah, uh, I don't have you in my system. Did you book a room?",
+                         "Busy Receptionist: You're not here. I don't know what to tell you. Look, it's not my fault you're an idiot. I don't have time for your nonsense. Come back later and I'll sort this out."], #2
+                        ["He's ignoring you."], #3
+                        ["Busy Receptionist: All right, your room is 315. Here's your key. Don't lose it, because I'm done helping you. Go bother someone else."] #4
                     ])
-    
+                         
+pBarista = NPC(5, "Bored Barista", "Behind the counter is a Barista, probably. She looks pretty bored.", "You see the bored barista", 5,
+               [
+                   ["Bored Barista: What do you want?",
+                    "Bored Barista: Nothing? Good. I was planning on taking a nap. This job sucks.",
+                    "Bored Barista: You people suck."], #0
+                   ["Bored Barista: What do you want? Can't you see I'm not busy?",
+                    "Bored Barista: Chamomile Tea? Yeah whatever.",
+                    "Bored Barista: Tea's gross.",
+                    "Bored Barista: You're gross."
+                    "Bored Barista: Here's your Cham-whatever tea. Have a sub-par day."], #1
+                   ["Bored Barista: Now what? What do mean I gave you the wrong tea?",
+                    "Bored Barista: Are you suggesting I don't know who to do my job? How dare you?",
+                    "Bored Barista: Besides, tea is tea. Why do you care?",
+                    "Bored Barista: I obviously don't. Look, I'll 'make the right tea' if you can get that punk over there to leave.",
+                    "Bored Barista: Dude's a serious nut job. Good luck."], #2
+                   ["Bored Barista: Oh, you actually got him to leave. Nice.",
+                    "Bored Barista: Well, here's your tea. If you'll excuse me, I'm going to take a nap."], #3
+                   ["Bored Barista: Now what? You just what to talk? Sheesh, what a loser!"], #4
+                   ["Bored Barista: More sugar? MORE SUGAR?! Why didn't you ask for more sugar when I made the damn tea?!",
+                    "Bored Barista: Take your sugar and piss off, already!"], #5
+                   ["Bored Barista: You're really annoying, you know that?"] #6
+                ])
 tNPCs = [pFamily,
          pAngryWoman,
          pBellhop,
-         pOldLady]
+         pOldLady,
+         pReceptionist,
+         pBarista]
 ####################
 ##UTILITY FUNCTIONS
 ####################
@@ -268,18 +306,49 @@ def onDialogueEnd(iNPC):
         #TODO: Logic for once player drops off luggage at NPC's room. We'll need a hook for that.
     #Lazy Bellhop
     elif iNPC == 2:
-        #if pNPC.Progress != 2: pNPC.Progress += 1
-        if pNPC.Progress == 0 tNPCs[1].Progress == 1: pNPC.Progress = 1
+        #Has the player talked to the Angry Woman?
+        if pNPC.Progress == 0 and tNPCs[1].Progress == 1: pNPC.Progress = 1
         elif pNPC.Progress == 1: pNPC.Progress = 2
     #Old Lady
     elif iNPC == 3:
-        if pNPC.Progress != 1 or pNPC.Progress != 5:
-            #She has requested the player get something. Set to 1
+        if pNPC.Progress == 0:
+            #Requested tea. Ready the barista
+            tNPCs[5].Progress = 1
             pNPC.Progress = 1
-        elif pNPC.Progress == 1:
-               pass #TODO: rely on logic for Barista to set Progress here
+        elif pNPC.Progress == 2:
+            #Wrong tea. Ready barista
+            tNPCs[5].Progress = 2
+            pNPC.Progress = 1
+        elif pNPC.Progress == 3:
+            #Wants sugar. Barista.
+            tNPCs[5].Progress = 5
+        elif pNPC.Progress == 1 or pNPC.Progress == 4:
+            pass   
         else:
             pNPC.Progress = 5
+    #Busy Receptionist
+    elif iNPC == 4:
+        if pNPC.Progress == 0: pNPC.Progress = 1
+        elif pNPC.Progress == 2: pNPC.Progress = 3
+        elif pNPC.Progress == 3 and Pan.Moves > 20: pNPC.Progress = 4
+        #elif pNPC.Progress == 4: pNPC.Progress = 3
+    #Bored Barista
+    elif iNPC == 5:
+        #Old Lady requested tea
+        if pNPC.Progress == 1:
+            pNPC.Progress = 0
+            #Update progress for old lady
+            tNPCs[3].Progress = 2
+        #end if
+        if pNPC.Progress == 3:
+            pNPC.Progress = 4
+            #Update progress for old lady
+            tNPCs[3].Progress = 3
+        #end if
+        elif pNPC.Progress == 5:
+            pNPC.Progress = 6
+            #Update progress for old lady
+            tNPCs[3].Progress = 4
     
 ############
 ##reset
