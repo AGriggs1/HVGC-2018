@@ -196,10 +196,10 @@ pBarista = NPC(5, "Bored Barista", "Behind the counter is a Barista, probably. S
                    ["Bored Barista: What do you want? Can't you see I'm not busy?",
                     "Bored Barista: Chamomile Tea? Yeah whatever.",
                     "Bored Barista: Tea's gross.",
-                    "Bored Barista: You're gross."
+                    "Bored Barista: You're gross.",
                     "Bored Barista: Here's your Cham-whatever tea. Have a sub-par day."], #1
                    ["Bored Barista: Now what? What do mean I gave you the wrong tea?",
-                    "Bored Barista: Are you suggesting I don't know who to do my job? How dare you?",
+                    "Bored Barista: Are you suggesting I don't know who to do my job? How dare you!",
                     "Bored Barista: Besides, tea is tea. Why do you care?",
                     "Bored Barista: I obviously don't. Look, I'll 'make the right tea' if you can get that punk over there to leave.",
                     "Bored Barista: Dude's a serious nut job. Good luck."], #2
@@ -422,7 +422,7 @@ def Game():
                     print(Pan.iLocale)
                     if p.iLocale == Pan.iLocale: print(p.Name)
                 #end for
-                sInput = input().lower
+                sInput = input().lower()
                 talkTo(sInput)
             #end if
         elif sInput == "use": pass #This one will take a lot to make sure it's done right. Depends on items used
