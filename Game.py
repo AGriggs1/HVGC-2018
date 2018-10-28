@@ -92,11 +92,92 @@ pFamily = NPC(0, "Cranky Family", "You notice what appears to be a family of 4. 
                      "Cranky Family: Why does everything have to be an argument with you? Look, you take Anna to the bathroom and check in, I'll get the diaper bag.",
                      "Cranky Family: Yeah, sure, how about YOU take Anna to the bathroom and I'll get the diaper bag? As if I trust you!",
                      "Cranky Family: Here we go again with this! Whyyyy does it matter who does what?!",
-                     "It's doesn't seem like they're going to stop anytime soon..."],
-                  ["They're still going at it. Perhaps you should stay out of this."]
+                     "It's doesn't seem like they're going to stop anytime soon..."], #0
+                  ["They're still going at it. Perhaps you should stay out of this."] #1
                 ])
+pAngryWoman = NPC(1, "Irritated Lady", "There is a woman standing by the doorway. She looks upset.", "You see the irritated lady.", 2,
+                  [
+                      ["Irritated Lady: Finally, some service! This hotel is ridiculous!",
+                       "Irritated Lady: Do you have any idea how long I've been waiting for someone to help me with my bags? Who do you people think you people are?",
+                       "Irritated Lady: The last bell boy refused to help me! What an absolute jerk! I know they probably pay you 'people' minimum wage, but how is that my problem?!",
+                       "Irritated Lady: My room is 301. Take my bags and don't even THINK about stealing my stuff with those grubby hands of yours!",
+                       "Irritated Lady: And NO! I will not be giving you a tip! Maybe if you'd gotten here 15 miniutes earlier, but it's not my fault that this dump doesn't know to treat its patrons!",
+                       "Okay then."], #0
+                      ["Irritated Lady: What is taking Becka so long?! I just want to check in already so we can head out..."], #1
+                      ["Irritated Lady: Oh so you finally got my bags to my room? Good for you. Look, I already said you weren't getting a tip, so I don't know why you're wasting my time. Go beg the soup kitchen for a meal, or something!"]
+                       
+                    ])
 
-tNPCs = [pFamily]
+pBellhop = NPC(2, "Lazy Bellhop", "You notice a bellhop relaxing on a couch.", "You see the lazy bellhop.", 3,
+               [
+                   ["Lazy Bellhop: If you're looking for help with your bags, don't bother asking.",
+                    "Lazy Bellhop: I've got better things to do than deal with idiots who think they're sooooo special."], #0
+                   ["Lazy Bellhop: Hahaha! I see that nutjob lady has you dealing with her bags!",
+                    "Lazy Bellhop: Where's your self-respect? You're going to let that bat walk all over you?",
+                    "Lazy Bellhop: Or maybe you think what you're doing is a good thing. Get over yourself.",
+                    "Lazy Bellhop: I almost feel bad for you. Oooooh, man!"], #1
+                   ["Lazy Bellhop: I almost feel bad for you. Oooooh, man!"] #2
+                   ])
+
+pOldLady = NPC(3, "Elderly Woman", "There is an old woman relaxing in a chair.", "You see the elderly woman", 3,
+                [
+                    ["Elderly Woman: Oh, hello deary! What brings you out here to a place like this?",
+                     "Elderly Woman: Me, I'm just relaxing, taking a staycation, if you will. It's been a tradition to come here with my dearest Bernie.",
+                     "Elderly Woman: I remember the first time Bernie took me out here. It was way back in '55, I believe.",
+                     "Elderly Woman: Bernie, young and dashing tells me about this hotel he wants to spend the weekend with me. Says it's called Sasperella Hotel.",
+                     "Elderly Woman: I never really understood why it was called that. Times were different, mind you. That just means things have changed.",
+                     "Elderly Woman: You're still young, who knows what they'll call this place 50 years from now?",
+                     "Elderly Woman: I still remember when the daggerbee was the talk of town! Those were different times, they were.",
+                     "Elderly Woman: I loved that dance. I used to dance my little heart out, but my poor, poor, Bernie just couldn't keep up!",
+                     "Elderly Woman: Oh, but this old body can't either, now.",
+                     "Elderly Woman: I remember asking Bernie why in God's name he wanted to stay at a hotel when we had a perfectly good home",
+                     "Elderly Woman: You've seen this place, right? It's not exactly luxurious, is it? It wasn't back then either!",
+                     "Elderly Woman: This building goes way back. I don't think it was always a hotel, but who knows?",
+                     "Elderly Woman: Why would anyone stay here when they're not out-of town? I just could not figure it out!",
+                     "Elderly Woman: And my Bernie, charming as he always was, he says,",
+                     "Elderly Woman: What was it? He says, 'Benny', it ain't where you go, it's who you go with!'",
+                     "Elderly Woman: And I go: 'Yeah, whatever!' and, well, here we are now!",
+                     "Elderly Woman: Bernie was just that kind of man. Always looking to do something, even if that something seemed like a waste of time and money.",
+                     "Elderly Woman: He truly believed that it wasn't where you went or what you did, but who you were with.",
+                     "Elderly Woman: And in a way, he was right. He was absolutely right.",
+                     "Elderly Woman: Deary, could you do me a favor and get me some chamomile tea from the cafe? It helps me relax! Thank you, dear!"], #0
+                    ["Elderly Woman: Hello dear, did you get me my tea? These old bones need nourishment!"], #1 - repeat this will waiting for tea
+                    ["Elderly Woman: Hello dear, did you get me my tea?",
+                     "Elderly Woman: Thank you, honey!",
+                     "Elderly Woman: Such a youngling, aren't you?",
+                     "Elderly Woman: Are you here with anyone? Well, they must be a lucky soul to have someone as well mannered as you!",
+                     "Elderly Woman: Remember to keep those who matter in life close. You never know when they'll move on to the next life.",
+                     "Elderly Woman: I still come here every so often, even though my Bernie is no longer with me.",
+                     "Elderly Woman: I'm just so fond of the memories here. This place means a lot to me and Bernie.",
+                     "Elderly Woman: I hope you can say the same about something in your life.",
+                     "Elderly Woman: You may be young, but one day you'll be as old as I before you even know it!",
+                     "Elderly Woman: You tend to spend a lot of time reflecting on your life as you get older.",
+                     "Elderly Woman: Not in a sort regretting, fashion, oh no! Just in a sort of fond way.",
+                     "Elderly Woman: When your bones get as brittle as mine, what else are you to do?",
+                     "Elderly Woman: I remember a time when I could dance the night away. Now, not so much.",
+                     "Elderly Woman: That's just life for you. Spend your young days having fun, so you have something to look back on when you get old.",
+                     "Elderly Woman: Oh, honey, this isn't chamomile tea at all! Could you take this back and get me my tea? Thank you!"], #2
+                    ["Elderly Woman: Oh, you're  back! And I see you got me my tea! You're such a good dear!",
+                     "Elderly Woman: We need more people like you out there in the world. I don't mean to tell you how to live your life, but do you do any volunteer work?",
+                     "Elderly Woman: You should consider it. There is always someone out there that could use the helping hand of another, and unfortunately some people don't have anyone they can rely on.",
+                     "Elderly Woman: Be grateful for what you have. Recognize that others are not so lucky!",
+                     "Elderly Woman: It seems to me that some people have lost their manners these days. I remember when people left their front doors unlocked.",
+                     "Elderly Woman: Times are different, but I'm still the same old woman I was way back when. There used to be this one song I adored, but it drove my Bernie mad!",
+                     "Elderly Woman: Oh, what was it called again? I don't remember. It was waaaay back!",
+                     "Elderly Woman: This old brain can problems remember the details of things. Faces, however, are forever.",
+                     "Elderly Woman: I remeber an individual who stayed here, what was it, 10 years ago? Must of have been.",
+                     "Elderly Woman: This one man stayed for about a year. He would be holed up in his room for most of the time. Rarely talked to anyone, wouldn't let the maids clean his room.",
+                     "Elderly Woman: He was an odd fellow for sure. I wonder what ever happended to him...",
+                     "Elderly Woman: Dear, could you get me more sugar for my tea? Thank you!"], #3
+                    ["Elderly Woman: Thank you, dear! You've been a big help!",
+                     "You're a good listener, you know that? I've been rambling for a while, so I think I'll just leave you to your business. It was nice getting to know you!"], #4
+                    ["She seems to be preoccupied with a novel she's reading."] #5
+                    ])
+    
+tNPCs = [pFamily,
+         pAngryWoman,
+         pBellhop,
+         pOldLady]
 ####################
 ##UTILITY FUNCTIONS
 ####################
@@ -147,7 +228,8 @@ def move(iDirection):
 def examine(iLocale):
     pLocation = tLocations[iLocale]
     print(pLocation.ExamineDesc)
-    for p in tNPCs: print(p.LongDesc)
+    for p in tNPCs:
+        if p.iLocale == iLocale: print(p.LongDesc)
     #TODO: List interactives at this location
     #List the directions the player can go from here
     for i in range(len(mNavigator[0])):
@@ -155,12 +237,15 @@ def examine(iLocale):
     #End for
     tLocations[iLocale].Examined = True
 #End examine
-
+####################
+##talkTo
+##Attempts to talk to the person with passed name
+####################
 def talkTo(sPerson):
-    #find the person the player requested
+    #find the person the player requested - they must be at the same location as the player!
     bFound = False
     for p in tNPCs:
-        if p.Name == sPerson:
+        if p.Name.lower() == sPerson and p.iLocale == Pan.iLocale:
             bFound = True
             for s in p.Dialogue[p.Progress]: input(s)
             onDialogueEnd(p.ID)
@@ -168,10 +253,33 @@ def talkTo(sPerson):
     #end for
     if(not bFound): print("There is no " + sPerson)
 #end talkTo
+########################
+##onDialogue
+##Runs whenever the player is done talking to an NPC.
+########################
 def onDialogueEnd(iNPC):
     pNPC = tNPCs[iNPC]
+    #Cranky Family
     if iNPC == 0:
         pNPC.Progress = 1
+    #Angry Woman
+    elif iNPC == 1:
+        if pNPC.Progress == 0: pNPC.Progress = 1
+        #TODO: Logic for once player drops off luggage at NPC's room. We'll need a hook for that.
+    #Lazy Bellhop
+    elif iNPC == 2:
+        #if pNPC.Progress != 2: pNPC.Progress += 1
+        if pNPC.Progress == 0 tNPCs[1].Progress == 1: pNPC.Progress = 1
+        elif pNPC.Progress == 1: pNPC.Progress = 2
+    #Old Lady
+    elif iNPC == 3:
+        if pNPC.Progress != 1 or pNPC.Progress != 5:
+            #She has requested the player get something. Set to 1
+            pNPC.Progress = 1
+        elif pNPC.Progress == 1:
+               pass #TODO: rely on logic for Barista to set Progress here
+        else:
+            pNPC.Progress = 5
     
 ############
 ##reset
@@ -241,10 +349,12 @@ def Game():
             print("Talk to?")
             if tLocations[Pan.iLocale].Examined:
                 for p in tNPCs:
+                    print(p.iLocale)
+                    print(Pan.iLocale)
                     if p.iLocale == Pan.iLocale: print(p.Name)
-                    sInput = input()
-                    talkTo(sInput)
                 #end for
+                sInput = input().lower
+                talkTo(sInput)
             #end if
         elif sInput == "use": pass #This one will take a lot to make sure it's done right. Depends on items used
         elif sInput == "inventory":
