@@ -13,8 +13,8 @@ class Locale:
         self.Examined = False
         #We need to create a new table for the items
         #Doing self.Items = tItems creats a reference
-        self.Items = []
-        for sItem in tItems: self.Items.append(sItem)
+        self.Interactives = []
+        for sItem in tItems: self.Interactives.append(sItem)
     #End Constructor
 
     def UpdateVisited(self):
