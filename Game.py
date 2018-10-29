@@ -594,13 +594,13 @@ def Game():
             print("Talk to?")
             if tLocations[Pan.iLocale].Examined:
                 for p in tNPCs:
-                    print(p.iLocale)
-                    print(Pan.iLocale)
                     if p.iLocale == Pan.iLocale: print(p.Name)
                 #end for
                 sInput = input().lower()
                 talkTo(sInput)
             #end if
+        elif sInput[0:7] == "talk to" and sInput != "talk to" and tLocations[Pan.iLocale].Examined: #This means the player may have specified a specific player
+            talkTo(sInput[7:len(sInput)].strip())
         elif sInput == "use": pass #This one will take a lot to make sure it's done right. Depends on items used
         elif sInput == "inventory":
             print("You have: ")
