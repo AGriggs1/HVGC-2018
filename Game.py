@@ -275,6 +275,26 @@ pLargeMan = NPC(9, "Large Man", "You notice a large man in the hot tub.", "You s
                     ["Large Man: Whaddya mean, she's not interested in me? You probably said something to mess all up, idiot!",
                      "Large Man: This is what I get for trusting someone as dumb as you!"] #1
                 ])
+pCabanaDude = NPC(10, "Cabana Dude", "A man in a Hawaiian Shirt is behind the counter. Looks like a surfer bro out of his element.", "You see the Cabana Dude", 11,
+                  [
+                      ["Cabana Dude: What can I get for you?",
+                       "Cabana Dude: Nothing? Bummer! Look at you: you're waaaaay too tensed up!",
+                       "Cabana Dude: You came here to relax, right? If you're always so uppity, then what's point of life?",
+                       "Cabana Dude: If I were you, I would just quit my day job and spend the rest of my life dedicated to volunteer work!",
+                       "Cabana Dude: I mean, what skills could YOU potentially have? Look at you! Bummer, indeed!"], #0
+                      
+                      ["Cabana Dude: Have you finally got it all together?",
+                       "Cabana Dude: A slushie? All right, dude! Once slushie coming up!"], #1
+                      
+                      ["Cabana Dude: Far out!"] #I don't know. I don't know what he is.
+                    ])
+pMaid = NPC(11, "Old Maid", "An old maid is in the hallway.", "You see the old maid", 13,
+            [
+                ["Old Maid: What in God's name do you want?",
+                 "Old Maid: Can't you see I'm busy cleaning up after SLOBS LIKE YOU?!",
+                 "Old Maid: You young people have no respect. Wasting my time with your nonsense!",
+                 "Old Maid: Out of my way! And wipe that dumb look off your face before it freezes like that!"] #0
+            ])
 tNPCs = [pFamily,
          pAngryWoman,
          pBellhop,
@@ -284,7 +304,9 @@ tNPCs = [pFamily,
          pBusinessMan,
          pArcadeKid,
          pPoolGirl,
-         pLargeMan]
+         pLargeMan,
+         pCabanaDude,
+         pMaid]
 ####################
 ##UTILITY FUNCTIONS
 ####################
@@ -455,8 +477,10 @@ def onDialogueEnd(iNPC):
     elif iNPC == 7:
         #Before anything, the player must use an arcade machine for him to talk to you.
         #That will be in a different hook.
+        #Wants a slushie. Get it from the Cabana Dude
+        if pNPC.Progress == 2: tNPCs[10].Progress = 1
         #Sequence complete. He's done talking to you.
-        if pNPC.Progress == 3: pNPC.Progress = 0
+        elif pNPC.Progress == 3: pNPC.Progress = 0
 
         
     #Pool Girl
@@ -469,6 +493,11 @@ def onDialogueEnd(iNPC):
     elif iNPC == 9:
         #Wants Pool Girl's number
         if iNPC.Progress == 0: tNPCS[8].Progress = 1
+
+    #Cabana Dude
+    elif iNPC == 10:
+        #Player got the slushie
+        if pNPC.Progress == 1: pNPC.Progress = 2
     
     
 ############
