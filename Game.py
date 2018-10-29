@@ -398,6 +398,8 @@ def onDialogueEnd(iNPC):
     elif iNPC == 1:
         if pNPC.Progress == 0: pNPC.Progress = 1
         #TODO: Logic for once player drops off luggage at NPC's room. We'll need a hook for that.
+        Pan.Inventory.append("Irritated Lady's Luggage")
+        print("Got the Irritated Lady's Luggage!")
         
         
     #Lazy Bellhop
@@ -417,6 +419,9 @@ def onDialogueEnd(iNPC):
             #Wrong tea. Ready barista
             tNPCs[5].Progress = 2
             pNPC.Progress = 1
+            Pan.Inventory.append("Not Chamomile Tea")
+            Pan.Inventory.remove("Chamomile Tea")
+            print("Got the Not Chamomile Tea!")
         elif pNPC.Progress == 3:
             #Wants sugar. Barista.
             tNPCs[5].Progress = 5
@@ -434,7 +439,11 @@ def onDialogueEnd(iNPC):
             pNPC.Progress = 3
             #The receptionist is 'preparing the player's room' It will take 10 moves. Therefore, try to get to this point as quickly as possible
             iMovesUntilKey = Pan.Moves + 10
-        elif pNPC.Progress == 3 and Pan.Moves >= iMovesUntilKey: pNPC.Progress = 4
+        #Key is ready
+        elif pNPC.Progress == 3 and Pan.Moves >= iMovesUntilKey:
+            pNPC.Progress = 4
+            Pan.Inventory.append("Room Key")
+            print("Got the Room Key!")
         #elif pNPC.Progress == 4: pNPC.Progress = 3
         
         
@@ -445,19 +454,29 @@ def onDialogueEnd(iNPC):
             pNPC.Progress = 0
             #Update progress for old lady
             tNPCs[3].Progress = 2
+            #Give the player the tea
+            Pan.Inventory.append("Chamomile Tea")
+            print("Got the Chamomile Tea!")
         #Barista requests that you get rid of Suit guy
         elif pNPC.Progress == 2:
             tNPCs[6].Progress == 1
+            if "Not Chamomile Tea" in Pan.Inventory: Pan.Inventory.remove("Not Chamomile Tea") #I don't know if trying to remove an non-existant problem will be an issue
+                             #Let's not take any chances
         #Player got rid of Suit guy
         elif pNPC.Progress == 3:
             pNPC.Progress = 4
             #Update progress for old lady
             tNPCs[3].Progress = 3
+            Pan.Inventory.append("Actual Chamomile Tea")
+            print("Got the Actual Chamomile Tea!")
         #Wants sugar
         elif pNPC.Progress == 5:
             pNPC.Progress = 6
             #Update progress for old lady
             tNPCs[3].Progress = 4
+            Pan.Inventory.append("Actual Chamomile Tea With Sugar")
+            Pan.Inventory.remove("Actual Chamomile Tea")
+            print("Got the Actual Chamomile Tea With Sugar!")
             
             
     #Suit Guy
@@ -480,7 +499,10 @@ def onDialogueEnd(iNPC):
         #Wants a slushie. Get it from the Cabana Dude
         if pNPC.Progress == 2: tNPCs[10].Progress = 1
         #Sequence complete. He's done talking to you.
-        elif pNPC.Progress == 3: pNPC.Progress = 0
+        elif pNPC.Progress == 3:
+            pNPC.Progress = 0
+            pNPC.iLocale = pCafe.ID #I don't remember the ID, but this'll do
+            Pan.Inventory.remove("Cabana Slushie")
 
         
     #Pool Girl
@@ -497,7 +519,9 @@ def onDialogueEnd(iNPC):
     #Cabana Dude
     elif iNPC == 10:
         #Player got the slushie
-        if pNPC.Progress == 1: pNPC.Progress = 2
+        if pNPC.Progress == 1:
+            pNPC.Progress = 2
+            Pan.Inventory.append("Cabana Slushie")
     
     
 ############
