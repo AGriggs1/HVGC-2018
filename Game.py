@@ -18,7 +18,7 @@ pParkingW = Locale(1, "You begin to make your way towards the hotel entrance.", 
 pEntrance = Locale(2, "You reach the entrance to the hotel. You are eager to check in and officially begin your time off.", "You are at the entrance of the hotel.", "", [])
 pLobby = Locale(3, "You enter the hotel lobby. Quaint.", "You are in the hotel lobby.", "Like it's name, the lobby of the hotel is themed with a tropical mindset. It's a bit on the cheesy side, actually.",
                 ["Couch", "Magazines", "Hotel map"])
-pFrDesk = Locale(4, "You make your way towards the front desk, the base of which is painted with light-blue wave crests.", "You are at the front desk", "",
+pFrDesk = Locale(4, "You make your way towards the front desk, the base of which is painted with light-blue wave crests.", "You are at the front desk", "Looks like there's a bell to ring.",
                  ["Bell"])
 pCafe = Locale(5, "You head into the hotel cafe. The smell of coffee overwhelms you.", "You are in the cafe", "The cafe has a small-town coffee shop vibe. It's a nice change from the tropical one, that's for sure!",
                ["Table"])
@@ -198,11 +198,14 @@ pReceptionist = NPC(4, "Busy Receptionist", "There is a receptionist. Looks like
                         
                         ["Busy Receptionist: I'll get you when I get to you! Got that?"], #1
                         
-                        ["Busy Receptionist: Stop. Ringing. The Goddamn. Bell!",
-                         "Busy Receptionist: What the hell do you want? To check in? Fine! At least then you'll go bother someone else.",
-                         "Busy Receptionist: Your name? Come on, out with it! You've wasted enough of my time!",
-                         "Busy Receptionist: Yeah, uh, I don't have you in my system. Did you book a room?",
-                         "Busy Receptionist: You're not here. I don't know what to tell you. Look, it's not my fault you're an idiot. I don't have time for your nonsense. Come back later and I'll sort this out."], #2
+                        ["Angry Receptionist: Stop. Ringing. The Goddamn. Bell!",
+                         "Angry Receptionist: What the hell do you want? To check in? Fine! At least then you'll go bother someone else, then.",
+                         "Angry Receptionist: Your name? Come on, out with it! You've wasted enough of my time!",
+                         "...",
+                         "Angry Receptionist: Yeah, uh, I don't have you in my system. Did you book a room?",
+                         "Angry Receptionist: Yeah, you aren't here. I don't know what to tell you.",
+                         "Angry Receptionist: Did I spell your name right? Are you accussing me of being iliterate? I could kick you to the curb if I wanted to, buddy!",
+                         "Angry Receptionist: Look, it's not my fault you're an idiot. I don't have time for your nonsense. Come back later and I'll sort this out then."], #2
                         
                         ["He's ignoring you."], #3
                         
@@ -286,12 +289,12 @@ pCabanaDude = NPC(10, "Cabana Dude", "A man in a Hawaiian Shirt is behind the co
                   [
                       ["Cabana Dude: What can I get for you?",
                        "Cabana Dude: Nothing? Bummer! Look at you: you're waaaaay too tensed up!",
-                       "Cabana Dude: You came here to relax, right? If you're always so uppity, then what's point of life?",
+                       "Cabana Dude: You came here to relax, right? If you're always so uppity, then what's the point of life?",
                        "Cabana Dude: If I were you, I would just quit my day job and spend the rest of my life dedicated to volunteer work!",
                        "Cabana Dude: I mean, what skills could YOU potentially have? Look at you! Bummer, indeed!"], #0
                       
                       ["Cabana Dude: Have you finally got it all together?",
-                       "Cabana Dude: A slushie? All right, dude! Once slushie coming up!"], #1
+                       "Cabana Dude: A slushie? All right, dude! One slushie coming up!"], #1
                       
                       ["Cabana Dude: Far out!"] #I don't know. I don't know what he is.
                     ])
@@ -396,6 +399,7 @@ def talkTo(sPerson):
 iMovesUntilKey = 0
 def onDialogueEnd(iNPC):
     pNPC = tNPCs[iNPC]
+    Pan.Moves += 1
     #Cranky Family
     if iNPC == 0:
         pNPC.Progress = 1
@@ -418,6 +422,7 @@ def onDialogueEnd(iNPC):
         
     #Old Lady
     elif iNPC == 3:
+        Pan.Moves += 1
         if pNPC.Progress == 0:
             #Requested tea. Ready the barista
             tNPCs[5].Progress = 1
@@ -446,6 +451,7 @@ def onDialogueEnd(iNPC):
             pNPC.Progress = 3
             #The receptionist is 'preparing the player's room' It will take 10 moves. Therefore, try to get to this point as quickly as possible
             iMovesUntilKey = Pan.Moves + 10
+            print(iMovesUntilKey)
         #Key is ready
         elif pNPC.Progress == 3 and Pan.Moves >= iMovesUntilKey:
             pNPC.Progress = 4
@@ -535,13 +541,19 @@ def onDialogueEnd(iNPC):
 def use(sThing, iLocale):
     #Since interactions are tied to locales, this allows for easier checking
     #Interactions increase score. How well you did is based on score - Moves made
-    if sThing.capitalize() in tLocations[iLocale].Interactives:
-        #Couch - Lobby
+    ##if sThing.capitalize() in tLocations[iLocale].Interactives:
+    if iLocale == 0:
+        #Player's car
+        if sThing == "your car" or sThing == "car":
+            input("You look your car, making sure you having everything you need. You can never be too dilligent!")
+            Pan.Score += 5
+        
+    elif iLocale == pLobby.ID:
         print(sThing)
         if sThing == "couch":
-            input("You sit down on the couch and relax. Honestly, you could really see yourself napping on this if given the time! ...And if you weren't in a public place...")
+            input("You sit down on the couch and relax. Comfy. Honestly, you could really see yourself napping on this if given the time! ...And if you weren't in a public place, say a hotel lobby...")
             Pan.Score += 5
-        #Map of the hotel - Lobby
+
         elif sThing == "hotel map":
             input("You take a look at the map of the building to get your bearings straight.\n"
                   "THIRD FLOOR \n "
@@ -559,11 +571,29 @@ def use(sThing, iLocale):
                   "            G    \n"
                   "            |    \n"
                   "            H---I\n"
-                  "\nYou are at: D)
-        #Magazines
+                  "\nYou are at: D    ")
+
         elif sThing == "magazines":
             input("You pick up one of the magazines lying around and begin reading through it.")
             Pan.Score += 5
+    elif iLocale == pFrDesk.ID:
+        if sThing == "bell":
+            input("*Ding!*\nThe busy receptionist glares at you.")
+            Pan.Score += 5
+            iTimes = 1
+            while input("Ring it again?\n").lower() == "yes" and iTimes < 3:
+                input("*Ding*!\nThe busy receptionist glares at you.")
+                Pan.Score += 5
+                iTimes += 1
+            #end while
+            #Now you got the receptionist's attention... just like you wanted, right?
+            if iTimes >= 3:
+                tNPCs[pReceptionist.ID].Progress = 2
+                print("Suddenly the formally busy, currently angry receptionist snathces the bell away from you.")
+                tLocations[iLocale].Interactives.remove("Bell")
+                talkTo("busy receptionist")
+            #end if
+        #end if
     
 ############
 ##reset
