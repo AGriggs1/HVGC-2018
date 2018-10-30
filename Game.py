@@ -17,7 +17,7 @@ pParkingW = Locale(1, "You begin to make your way towards the hotel entrance.", 
                    [])
 pEntrance = Locale(2, "You reach the entrance to the hotel. You are eager to check in and officially begin your time off.", "You are at the entrance of the hotel.", "", [])
 pLobby = Locale(3, "You enter the hotel lobby. Quaint.", "You are in the hotel lobby.", "Like it's name, the lobby of the hotel is themed with a tropical mindset. It's a bit on the cheesy side, actually.",
-                ["Couch", "Magazines", "You see a Map of the Building."])
+                ["Couch", "Magazines", "Hotel map"])
 pFrDesk = Locale(4, "You make your way towards the front desk, the base of which is painted with light-blue wave crests.", "You are at the front desk", "",
                  ["Bell"])
 pCafe = Locale(5, "You head into the hotel cafe. The smell of coffee overwhelms you.", "You are in the cafe", "The cafe has a small-town coffee shop vibe. It's a nice change from the tropical one, that's for sure!",
@@ -390,7 +390,7 @@ def talkTo(sPerson):
     if(not bFound): print("There is no " + sPerson)
 #end talkTo
 ########################
-##onDialogue
+##onDialogueEnd
 ##Runs whenever the player is done talking to an NPC.
 ########################
 iMovesUntilKey = 0
@@ -533,7 +533,37 @@ def onDialogueEnd(iNPC):
 #end onDialogueEnd
 
 def use(sThing, iLocale):
-    pass
+    #Since interactions are tied to locales, this allows for easier checking
+    #Interactions increase score. How well you did is based on score - Moves made
+    if sThing.capitalize() in tLocations[iLocale].Interactives:
+        #Couch - Lobby
+        print(sThing)
+        if sThing == "couch":
+            input("You sit down on the couch and relax. Honestly, you could really see yourself napping on this if given the time! ...And if you weren't in a public place...")
+            Pan.Score += 5
+        #Map of the hotel - Lobby
+        elif sThing == "hotel map":
+            input("You take a look at the map of the building to get your bearings straight.\n"
+                  "THIRD FLOOR \n "
+                  "            \n"
+                  "E           \n"
+                  "|           \n"
+                  "B2---C2---D2\n"
+                  "\n"
+                  "GROUND FLOOR     \n"
+                  "                 \n"
+                  "E           F    \n"
+                  "|           |    \n"
+                  "A---B---C---D---E\n"
+                  "            |    \n"
+                  "            G    \n"
+                  "            |    \n"
+                  "            H---I\n"
+                  "\nYou are at: D)
+        #Magazines
+        elif sThing == "magazines":
+            input("You pick up one of the magazines lying around and begin reading through it.")
+            Pan.Score += 5
     
 ############
 ##reset
@@ -552,16 +582,20 @@ def reset():
     Pan.Inventory = []
 #End reset
 
-def Init
 ##########
 ##Init
 ##Initialization function. Runs at game start
 ##########
 #Initialize the player
 def Init():
+    #Reset all values to game start
     reset()
+    #Hide the bedroom
+    mNavigator[pHallway4.ID][NORTH] = None
+    #Put Suit Guy and Arcade Kid back on the map
     tNPCs[6].iLocale = 5
     tNPCs[7].iLocale = 7
+    iMovesUntilKey = 0
     prompt("begin")
     print("\nIt's that time of year again. The sun's rays rain down on you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
     prompt(gCont)
@@ -620,7 +654,7 @@ def Game():
                     print(s)
                     #Got the user input
                 #end for
-                sInput = input().lower
+                sInput = input().lower()
                 use(sInput, Pan.iLocale)
         elif sInput == "inventory":
             print("You have: ")
