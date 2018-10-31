@@ -13,7 +13,7 @@ Pan = Player()
 pParkingE = Locale(0, "You finally enter a parking space and get out of your car. You packed lightly, so you don't think you'll be needing the help of bellhop.", "You are in the parking lot",
                    "There doesn't seem many cars here. In fact, the only person around is the man that's talking to you right now. That seems like a good thing, right?",
                    ["Your car"])
-pParkingW = Locale(1, "You begin to make your way towards the hotel entrance.", "You are in the parking lot", "Sunrise Hotel. It gives a nice tropical vibe, doesn't it? Too bad there's no beach nearby!",
+pParkingW = Locale(1, "You begin walking down the parking lot, making your way towards the hotel entrance.", "You are in the parking lot", "Sunrise Hotel. It gives a nice tropical vibe, doesn't it? Too bad there's no beach nearby!",
                    [])
 pEntrance = Locale(2, "You reach the entrance to the hotel. You are eager to check in and officially begin your time off.", "You are at the entrance of the hotel.", "", [])
 pLobby = Locale(3, "You enter the hotel lobby. Quaint.", "You are in the hotel lobby.", "Like its name, the lobby of the hotel is themed with a tropical mindset. It's a bit on the cheesy side, actually.",
@@ -26,7 +26,7 @@ pHallway = Locale(6, "You head down a hallway. Now what?", "You are in a hallway
                   [])
 pRecRoom = Locale(7, "You enter what looks like to be rec room.", "You are in a rec room.", "Arcade machines line the wall. There is a pool table and lounge chairs litter the room. Cozy.", ["Arcade cabinent", "Pool table", "Lounge Chair"])
 pElevator = Locale(8, "You head down one of the intersections, and hey, look, an elevator!", "It's an elevator.", "A Latin tune is leaking from the speaker on the ceiling.", ["Elevator"])
-pPool = Locale(9, "You head outside and come to a pool.", "You are at the pool.", "Lounge Chairs litter the poolside. Very fitting, for once.", ["Pool, Lounge Chairs"])
+pPool = Locale(9, "You head outside and come to a pool.", "You are at the pool.", "Lounge Chairs litter the poolside. Very fitting, for once.", ["Pool, Lounge Chair"])
 pHotub = Locale(10, "You walk along the poolside and come to a hot tub.", "You are by the hot tub", "It looks very inviting, actually!", ["Hot tub"])
 pCabana = Locale(11, "You head towards what looks like a shop themed to be a Beach Cabana.", "You are at the cabana.", "It appears to be made out of straw and bamboo. A familiar Latin tune is blasting from the radio.", ["Table"])
 pHallway2 = Locale(12, "You step out from the elevator, coming to the third floor hallway", "You are in a hallway",  "", [])
@@ -116,7 +116,7 @@ pAngryWoman = NPC(1, "Irritated Lady", "There is a woman standing by the doorway
                        "Irritated Lady: And NO! I will not be giving you a tip! Maybe if you'd gotten here 15 miniutes earlier, but it's not my fault that this dump doesn't know to treat its patrons!",
                        "Okay then."], #0
                       
-                      ["Irritated Lady: What is taking Becka so long?! I just want to check in already so we can head out..."], #1
+                      ["Irritated Lady: What is taking Becka so long?! I want to head out already..."], #1
                       
                       ["Irritated Lady: Oh so you finally got my bags to my room? Good for you. Look, I already said you weren't getting a tip, so I don't know why you're wasting my time. Go beg the soup kitchen for a meal, or something!"]
                        
@@ -279,14 +279,17 @@ pPoolGirl = NPC(8, "Relaxing Woman", "You notice a woman relaxing in a lounge ch
                 [
                     ["Relaxing Woman: Ew, you're blocking out the sun with your gross body!",
                      "Relaxing Woman: Get out of here, creep!"], #0
+                    
                     ["Relaxing Woman: That gordo wants what? Gross!",
-                     "Relaxing Woman: Tell him to get eff himself, causes that's the only way he's ever gonna get any!"]
+                     "Relaxing Woman: Tell him to go eff himself, causes that's the only way he's ever gonna get any!",
+                     "Relaxing Woman: Literally disgusting!"] #1
                 ])
 pLargeMan = NPC(9, "Large Man", "You notice a large man in the hot tub.", "You see the large man.", 10,
                 [
                     ["Large Man: Eh, eh, eh! This is MY hot tub time!",
                      "Large Man: Back off, bub! Tell you what: You can stay, if you get that babe in the lounge chair's number for me. Heh, heh, heh!"], #0
-                    ["Large Man: Whaddya mean, she's not interested in me? You probably said something to mess all up, idiot!",
+                    
+                    ["Large Man: Whaddya mean, she's not interested in me? You probably said something to mess this all up, idiot!",
                      "Large Man: This is what I get for trusting someone as dumb as you!"] #1
                 ])
 pCabanaDude = NPC(10, "Cabana Dude", "A man in a Hawaiian Shirt is behind the counter. Looks like a surfer bro out of his element.", "You see the Cabana Dude", 11,
@@ -346,7 +349,7 @@ def copyright(bEndGame):
 ##Used to stop pause the game and wait for the player to continue
 #####################
 def prompt(sMessage):
-    input("Print enter to " + sMessage)
+    input("Press enter to " + sMessage)
 #End prompt
 
 #####################
@@ -378,6 +381,12 @@ def examine(iLocale):
     for i in range(len(mNavigator[0])):
         if mNavigator[iLocale][i]: print("Looks like you can go " + tDirections[i] + " from here.")
     #End for
+    if iLocale == pHallway2.ID and "Irritated Lady's Luggage" in Pan.Inventory:
+        print("Oh, would you look at that: it's the Irritated Lady's room! You leave her luggage by her door.")
+        Pan.Inventory.remove("Irritated Lady's Luggage")
+        tNPCs[pAngryWoman.ID].Progress = 2
+    elif iLocale == pHallway4.ID and "Room Key" in Pan.Inventory:
+        print("311... 312... 313... 314... 315! Your hotel room.")
     tLocations[iLocale].Examined = True
 #End examine
 ####################
@@ -464,6 +473,8 @@ def onDialogueEnd(iNPC):
             pNPC.Progress = 3
             Pan.Inventory.append("Room Key")
             print("Got the Room Key!")
+            #Player got their room. Yay.
+            mNavigator[pHallway4.ID][NORTH] = pBedroom
         
         
     #Bored Barista
@@ -478,9 +489,9 @@ def onDialogueEnd(iNPC):
             print("Got the Chamomile Tea!")
         #Barista requests that you get rid of Suit guy
         elif pNPC.Progress == 2:
-            tNPCs[6].Progress == 1
+            tNPCs[pBusinessMan.ID].Progress = 1
             if "Not Chamomile Tea" in Pan.Inventory: Pan.Inventory.remove("Not Chamomile Tea") #I don't know if trying to remove an non-existant problem will be an issue
-                             #Let's not take any chances
+                             #UPDATE: It is.
         #Player got rid of Suit guy
         elif pNPC.Progress == 3:
             pNPC.Progress = 4
@@ -496,6 +507,9 @@ def onDialogueEnd(iNPC):
             Pan.Inventory.append("Actual Chamomile Tea With Sugar")
             Pan.Inventory.remove("Actual Chamomile Tea")
             print("Got the Actual Chamomile Tea With Sugar!")
+        elif pNPC.Progress == 6:
+            pNPC.Progress = 7
+            Pan.Inventory.remove("Actual Chamomile Tea With Sugar")
             
             
     #Suit Guy
@@ -517,30 +531,33 @@ def onDialogueEnd(iNPC):
         #That will be in a different hook.
         #Wants a slushie. Get it from the Cabana Dude
         if pNPC.Progress == 2: tNPCs[10].Progress = 1
-        #Sequence complete. He's done talking to you.
+        #Sequence complete. Moves to cafe. He's done talking to you.
         elif pNPC.Progress == 3:
             pNPC.Progress = 0
             pNPC.iLocale = pCafe.ID #I don't remember the ID, but this'll do
+            tNPCs[6].Progress = 3
             Pan.Inventory.remove("Cabana Slushie")
 
         
     #Pool Girl
     elif iNPC == 8:
         #Told off large man?
-        if iNPC.Progress == 1: tNPCS[9].Progress = 1
+        if pNPC.Progress == 1: tNPCs[9].Progress = 1
 
         
     #Large man
     elif iNPC == 9:
         #Wants Pool Girl's number
-        if iNPC.Progress == 0: tNPCS[8].Progress = 1
+        if pNPC.Progress == 0: tNPCs[8].Progress = 1
 
     #Cabana Dude
     elif iNPC == 10:
         #Player got the slushie
         if pNPC.Progress == 1:
             pNPC.Progress = 2
+            tNPCs[pArcadeKid.ID].Progress = 3
             Pan.Inventory.append("Cabana Slushie")
+            print("Got the cabana slushie!")
     ##end elif
 #end onDialogueEnd
 
@@ -614,7 +631,38 @@ def use(sThing, iLocale):
             print("Down we go! Down to the pits of hell, er, the ground floor!")
             Pan.iLocale = pElevator.ID
         #end if
-    
+    elif iLocale == pRecRoom.ID:
+        if sThing == "arcade cabinent":
+            input("You head over to one of the arcade cabinets and begin playing it.")
+            Pan.Score += 5
+            if tNPCs[pBusinessMan.ID].Progress == 1:
+                tNPCs[pArcadeKid.ID].Progress = 2
+            else: tNPCs[pArcadeKid.ID].Progress = 1
+            #end else
+        elif sThing == "pool table":
+            input("You play a round of pool. Too bad there's no one to play with.")
+            Pan.Score += 5
+        elif sThing == "lounge chair":
+            input("You sit down at one of the lounge chairs. Comfy.")
+            Pan.Score += 5
+        #end elif
+    elif iLocale == pPool.ID:
+        if sThing == "pool":
+            input("You decide to take a refreshing swim.")
+            Pan.Score += 5
+        elif sThing == "lounge chair":
+            input("You lay down on one of the lounge chairs and begin to relax. Now this, this is vacation.")
+            Pan.Score += 5
+        #end elif
+    elif iLocale == pHotub.ID:
+        if sThing == "hot tub":
+            input("You step into the hot tub. Aaaaaaah.")
+            Pan.Score += 5
+        #end if
+    elif iLocale == pCabana.ID:
+        if sThing == "table":
+            input("You sit down at one of the tables and relax.")
+            Pan.Score += 5
 ############
 ##reset
 ##Used to initialize data
