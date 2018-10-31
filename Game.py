@@ -25,15 +25,17 @@ pCafe = Locale(5, "You head into the hotel cafe. The smell of coffee overwhelms 
 pHallway = Locale(6, "You head down a hallway. Now what?", "You are in a hallway.", "There are door to rooms on each end. Further down the hallway is a door leading outside.",
                   [])
 pRecRoom = Locale(7, "You enter what looks like to be rec room.", "You are in a rec room.", "Arcade machines line the wall. There is a pool table and lounge chairs litter the room. Cozy.", ["Arcade cabinent", "Pool table", "Lounge Chair"])
-pElevator = Locale(8, "It's an elevator. You push the call button and step inside.", "It's an elevator.", "A Latin tune is leaking from the a speaker on the ceiling.", ["Elevator"])
+pElevator = Locale(8, "You head down one of the intersections, and hey, look, an elevator!", "It's an elevator.", "A Latin tune is leaking from the speaker on the ceiling.", ["Elevator"])
 pPool = Locale(9, "You head outside and come to a pool.", "You are at the pool.", "Lounge Chairs litter the poolside. Very fitting, for once.", ["Pool, Lounge Chairs"])
 pHotub = Locale(10, "You walk along the poolside and come to a hot tub.", "You are by the hot tub", "It looks very inviting, actually!", ["Hot tub"])
 pCabana = Locale(11, "You head towards what looks like a shop themed to be a Beach Cabana.", "You are at the cabana.", "It appears to be made out of straw and bamboo. A familiar Latin tune is blasting from the radio.", ["Table"])
-pHallway2 = Locale(12, "You enter a hallway", "You are in a hallway",  "", [])
-pHallway3 = Locale(13, "You continue down the hallway", "You are in a hallway", "", [])
-pHallway4 = Locale(14, "You continue down the hallway", "You are in a hallway", "", [])
+pHallway2 = Locale(12, "You step out from the elevator, coming to the third floor hallway", "You are in a hallway",  "", [])
+pHallway3 = Locale(13, "You continue down the hallway.", "You are in a hallway", "", [])
+pHallway4 = Locale(14, "You continue down the hallway.", "You are in a hallway", "", [])
 pBedroom = Locale(15, "You open the door and enter your room.", "You are in your room.", "Not too bad. Two queen-sized beds, a nightstand, a bathroom, and a TV. You even have a balcony!", ["Bed", "Television"])
 pBalcony = Locale(16, "You head out onto the balcony.", "You are at your room's balcony", "The view's pretty nice. You needed this, you tell yourself.", ["Chair"])
+#Realized that we need a second elevator locale - one for the third floor!
+pElevator2 = Locale(17, "It's an elevator", "It's an elevator", "A latin tune is leaking from the speaker on the ceiling.", ["Elevator"])
 #Define the Locations table
 #This is used to hook Players, NPCs to the Locale objects
 #We can't create a reference to the location from Player, NPC, as Locations have may potentially contain data that is subject to change throughout the game (items, visitation)
@@ -53,7 +55,8 @@ tLocations = [pParkingE,
               pHallway3,
               pHallway4,
               pBedroom,
-              pBalcony]
+              pBalcony,
+              pElevator2]
 
 #Define the Navigation Matrix
 mNavigator = [
@@ -70,11 +73,12 @@ mNavigator = [
     [pHotub, pCabana, pHallway, None], #-----Pool
     [None, pPool, None, None], #-------------Hotub
     [pPool, None, None, None], #-------------Cabana
-    [pElevator, None, pHallway3, None], #----Hallway2
+    [pElevator2, None, pHallway3, None], #----Hallway2
     [None, None, pHallway4, pHallway2], #----Hallway3
     [pBedroom, None, None, pHallway3], #-----Hallway4
     [pBalcony, pHallway4, None, None], #-----Bedroom
     [None, pBedroom, None, None], #----------Balcony
+    [None, pHallway2, None, None] #----------Elevator2
         ]
 #To make the methods a bit easier to read, I will define constants to be used as directions
 NORTH = 0
@@ -566,11 +570,11 @@ def use(sThing, iLocale):
                   "\n"
                   "GROUND FLOOR     \n"
                   "                 \n"
-                  "E           F    \n"
-                  "|           |    \n"
+                  "    E       F    \n"
+                  "    |       |    \n"
                   "A---B---C---D---E\n"
-                  "            |    \n"
-                  "            G    \n"
+                  "    |       |    \n"
+                  "    R       G    \n"
                   "            |    \n"
                   "            H---I\n"
                   "\nYou are at: D    ")
@@ -595,6 +599,20 @@ def use(sThing, iLocale):
                 tLocations[iLocale].Interactives.remove("Bell")
                 talkTo("busy receptionist")
             #end if
+        #end if
+    elif iLocale == pCafe.ID:
+        if sThing == "table":
+            input("You sit down at one of the tables and relax.")
+            Pan.Score += 5
+        #end if
+    elif iLocale == pElevator.ID:
+        if sThing == "elevator":
+            print("You decide to head for the third floor. You feel your center of gravity shift as the box moves up. With a *Ding!*, the doors slide open and you step out.")
+            Pan.iLocale = pElevator2.ID
+    elif iLocale == pElevator2.ID:
+        if sThing == "elevator":
+            print("Down we go! Down to the pits of hell, er, the ground floor!")
+            Pan.iLocale = pElevator.ID
         #end if
     
 ############
@@ -656,9 +674,9 @@ def Game():
     bGame = True;
     while(bGame):
         #First, check if the player's key is ready
-        if tNPCs[pReceptionist.ID].Progress == 3 and Pan.Moves >= Pan.MovesUntilKey and not "Key" in Pan.Inventory":
+        if tNPCs[pReceptionist.ID].Progress == 3 and Pan.Moves >= Pan.MovesUntilKey and not "Key" in Pan.Inventory:
             tNPCs[pReceptionist.ID].Progress = 4
-            print("Perhaps you should check back witht the receptionist. Your key's gotta be ready by this point!")
+            print("Perhaps you should check back with the receptionist. Your key's gotta be ready by this point!")
         #print the location description, get a command from the player
         sInput = input(tLocations[Pan.iLocale].GetDescription() + "\n").lower()
         tLocations[Pan.iLocale].UpdateVisited()
