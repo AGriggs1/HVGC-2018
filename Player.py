@@ -9,5 +9,6 @@ class Player:
         self.Moves = 0
         self.Score = 0
         self.iLocale = 0
+        self.MovesUntilKey = 0
         self.Inventory = []
 
