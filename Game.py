@@ -419,10 +419,11 @@ def onDialogueEnd(iNPC):
         
     #Angry Woman
     elif iNPC == 1:
-        if pNPC.Progress == 0: pNPC.Progress = 1
-        #TODO: Logic for once player drops off luggage at NPC's room. We'll need a hook for that.
-        Pan.Inventory.append("Irritated Lady's Luggage")
-        print("Got the Irritated Lady's Luggage!")
+        if pNPC.Progress == 0:
+            pNPC.Progress = 1
+            Pan.Inventory.append("Irritated Lady's Luggage")
+            print("Got the Irritated Lady's Luggage!")
+        
         
         
     #Lazy Bellhop
