@@ -16,15 +16,15 @@ pParkingE = Locale(0, "You finally enter a parking space and get out of your car
 pParkingW = Locale(1, "You begin to make your way towards the hotel entrance.", "You are in the parking lot", "Sunrise Hotel. It gives a nice tropical vibe, doesn't it? Too bad there's no beach nearby!",
                    [])
 pEntrance = Locale(2, "You reach the entrance to the hotel. You are eager to check in and officially begin your time off.", "You are at the entrance of the hotel.", "", [])
-pLobby = Locale(3, "You enter the hotel lobby. Quaint.", "You are in the hotel lobby.", "Like it's name, the lobby of the hotel is themed with a tropical mindset. It's a bit on the cheesy side, actually.",
+pLobby = Locale(3, "You enter the hotel lobby. Quaint.", "You are in the hotel lobby.", "Like its name, the lobby of the hotel is themed with a tropical mindset. It's a bit on the cheesy side, actually.",
                 ["Couch", "Magazines", "Hotel map"])
 pFrDesk = Locale(4, "You make your way towards the front desk, the base of which is painted with light-blue wave crests.", "You are at the front desk", "Looks like there's a bell to ring.",
                  ["Bell"])
 pCafe = Locale(5, "You head into the hotel cafe. The smell of coffee overwhelms you.", "You are in the cafe", "The cafe has a small-town coffee shop vibe. It's a nice change from the tropical one, that's for sure!",
                ["Table"])
-pHallway = Locale(6, "You head down a hallway.", "You are in a hallway.", "There are doors to rooms on each end. Further down the hallway is a door leading outside.",
+pHallway = Locale(6, "You head down a hallway. Now what?", "You are in a hallway.", "There are door to rooms on each end. Further down the hallway is a door leading outside.",
                   [])
-pRecRoom = Locale(7, "You enter what looks like to be rec room.", "You are in a rec room.", "Arcade machines line the wall. There is a pool table and lounge chairs litter the room. Cozy.", ["Arcade Cabinent", "Pool Table", "Couch"])
+pRecRoom = Locale(7, "You enter what looks like to be rec room.", "You are in a rec room.", "Arcade machines line the wall. There is a pool table and lounge chairs litter the room. Cozy.", ["Arcade cabinent", "Pool table", "Lounge Chair"])
 pElevator = Locale(8, "It's an elevator. You push the call button and step inside.", "It's an elevator.", "A Latin tune is leaking from the a speaker on the ceiling.", ["Elevator"])
 pPool = Locale(9, "You head outside and come to a pool.", "You are at the pool.", "Lounge Chairs litter the poolside. Very fitting, for once.", ["Pool, Lounge Chairs"])
 pHotub = Locale(10, "You walk along the poolside and come to a hot tub.", "You are by the hot tub", "It looks very inviting, actually!", ["Hot tub"])
@@ -32,7 +32,7 @@ pCabana = Locale(11, "You head towards what looks like a shop themed to be a Bea
 pHallway2 = Locale(12, "You enter a hallway", "You are in a hallway",  "", [])
 pHallway3 = Locale(13, "You continue down the hallway", "You are in a hallway", "", [])
 pHallway4 = Locale(14, "You continue down the hallway", "You are in a hallway", "", [])
-pBedroom = Locale(15, "You open the door and enter your room.", "You are in your room.", "Not too bad. Two queen-sized beds, a nightstand, a bathroom, and a TV. You even have a balcony!", ["Bed", "TV"])
+pBedroom = Locale(15, "You open the door and enter your room.", "You are in your room.", "Not too bad. Two queen-sized beds, a nightstand, a bathroom, and a TV. You even have a balcony!", ["Bed", "Television"])
 pBalcony = Locale(16, "You head out onto the balcony.", "You are at your room's balcony", "The view's pretty nice. You needed this, you tell yourself.", ["Chair"])
 #Define the Locations table
 #This is used to hook Players, NPCs to the Locale objects
@@ -204,7 +204,7 @@ pReceptionist = NPC(4, "Busy Receptionist", "There is a receptionist. Looks like
                          "...",
                          "Angry Receptionist: Yeah, uh, I don't have you in my system. Did you book a room?",
                          "Angry Receptionist: Yeah, you aren't here. I don't know what to tell you.",
-                         "Angry Receptionist: Did I spell your name right? Are you accussing me of being iliterate? I could kick you to the curb if I wanted to, buddy!",
+                         "Angry Receptionist: Did I spell your name right? Are you accussing me of being illiterate? I could kick you to the curb if I wanted to, buddy!",
                          "Angry Receptionist: Look, it's not my fault you're an idiot. I don't have time for your nonsense. Come back later and I'll sort this out then."], #2
                         
                         ["He's ignoring you."], #3
@@ -396,7 +396,6 @@ def talkTo(sPerson):
 ##onDialogueEnd
 ##Runs whenever the player is done talking to an NPC.
 ########################
-iMovesUntilKey = 0
 def onDialogueEnd(iNPC):
     pNPC = tNPCs[iNPC]
     Pan.Moves += 1
@@ -450,14 +449,17 @@ def onDialogueEnd(iNPC):
         elif pNPC.Progress == 2:
             pNPC.Progress = 3
             #The receptionist is 'preparing the player's room' It will take 10 moves. Therefore, try to get to this point as quickly as possible
-            iMovesUntilKey = Pan.Moves + 10
-            print(iMovesUntilKey)
+            Pan.MovesUntilKey = Pan.Moves + 10
+            print(Pan.MovesUntilKey)
         #Key is ready
-        elif pNPC.Progress == 3 and Pan.Moves >= iMovesUntilKey:
-            pNPC.Progress = 4
+        ##elif pNPC.Progress == 3 and Pan.Moves >= Pan.MovesUntilKey:
+            #pNPC.Progress = 4
+           # Pan.Inventory.append("Room Key")
+            #print("Got the Room Key!")
+        elif pNPC.Progress == 4:
+            pNPC.Progress = 3
             Pan.Inventory.append("Room Key")
             print("Got the Room Key!")
-        #elif pNPC.Progress == 4: pNPC.Progress = 3
         
         
     #Bored Barista
@@ -589,7 +591,7 @@ def use(sThing, iLocale):
             #Now you got the receptionist's attention... just like you wanted, right?
             if iTimes >= 3:
                 tNPCs[pReceptionist.ID].Progress = 2
-                print("Suddenly the formally busy, currently angry receptionist snathces the bell away from you.")
+                print("Suddenly the formally busy, currently angry receptionist snatches the bell away from you.")
                 tLocations[iLocale].Interactives.remove("Bell")
                 talkTo("busy receptionist")
             #end if
@@ -609,6 +611,7 @@ def reset():
     Pan.Score = 0
     Pan.Moves = 0
     Pan.iLocale = 0
+    Pan.MovesUntilKey = 0
     Pan.Inventory = []
 #End reset
 
@@ -625,7 +628,6 @@ def Init():
     #Put Suit Guy and Arcade Kid back on the map
     tNPCs[6].iLocale = 5
     tNPCs[7].iLocale = 7
-    iMovesUntilKey = 0
     prompt("begin")
     print("\nIt's that time of year again. The sun's rays rain down on you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
     prompt(gCont)
@@ -653,6 +655,10 @@ sHelp = ("List of commands\n"
 def Game():
     bGame = True;
     while(bGame):
+        #First, check if the player's key is ready
+        if tNPCs[pReceptionist.ID].Progress == 3 and Pan.Moves >= Pan.MovesUntilKey and not "Key" in Pan.Inventory":
+            tNPCs[pReceptionist.ID].Progress = 4
+            print("Perhaps you should check back witht the receptionist. Your key's gotta be ready by this point!")
         #print the location description, get a command from the player
         sInput = input(tLocations[Pan.iLocale].GetDescription() + "\n").lower()
         tLocations[Pan.iLocale].UpdateVisited()
