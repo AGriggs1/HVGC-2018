@@ -18,10 +18,10 @@ pParkingW = Locale(1, "You begin walking down the parking lot, making your way t
 pEntrance = Locale(2, "You reach the entrance to the hotel. You are eager to check in and officially begin your time off.", "You are at the entrance of the hotel.", "", [])
 pLobby = Locale(3, "You enter the hotel lobby. Quaint.", "You are in the hotel lobby.", "Like its name, the lobby of the hotel is themed with a tropical mindset."
                 " There are couches with bright pink flora on them, and chairs to sit at. It's a bit on the cheesy side, actually. A magazine rack catches your attention: next to appears to be a map of the building."
-                "May you can have to look at that at some point if you need to get bearings straight, you think to yourself.",
+                " Maybe you can have to look at that at some point if you need to get bearings straight, you think to yourself.",
                 ["Couch", "Magazines", "Hotel map"])
 pFrDesk = Locale(4, "You make your way towards the front desk, the base of which is painted with light-blue wave crests.", "You are at the front desk", "Looks like there's a bell to ring.",
-                 ["Bell"])
+                 [])
 pCafe = Locale(5, "You head into the hotel cafe. The smell of coffee overwhelms you.", "You are in the cafe", "The cafe has a small-town coffee shop vibe. It's a nice change from the tropical one, that's for sure!",
                ["Table"])
 pHallway = Locale(6, "You head down a hallway. Now what?", "You are in a hallway.", "There are door to rooms on each end. Further down the hallway is a door leading outside.",
@@ -465,7 +465,7 @@ def onDialogueEnd(iNPC):
         elif pNPC.Progress == 2:
             pNPC.Progress = 3
             #The receptionist is 'preparing the player's room' It will take 10 moves. Therefore, try to get to this point as quickly as possible
-            Pan.MovesUntilKey = Pan.Moves + 10
+            Pan.MovesUntilKey = Pan.Moves + 1
             print(Pan.MovesUntilKey)
         #Key is ready
         ##elif pNPC.Progress == 3 and Pan.Moves >= Pan.MovesUntilKey:
@@ -671,10 +671,17 @@ def use(sThing, iLocale):
             #End the game
             Pan.Score += 5
             print("You lay down on your bed, calling it day. You reflect back on your decision to stay here.")
-            prompt(cont)
-            if score <= moves:
-                print("Yeah, with the cheesy tropical vibe and toxic inhabitants, you can't have but feel stressed. This is supposed to be vacation! You're supposed to get away from all the nonsense of life,"
-                      "But the way the people of this hotel have acted serve you a harsh reminder that no matter where you go, the reality of life is sure to follow. You are miserable for the rest of your vacation.")
+            prompt(gCont)
+            if Pan.Score <= Pan.Moves:
+                print("Yeah, with the cheesy tropical vibe and toxic inhabitants, you can't have but feel stressed. This is supposed to be vacation! You're supposed to get away from all the nonsense of life."
+                      " But the way the people of this hotel have acted serve you a harsh reminder that no matter where you go, the reality of life is sure to follow. You are miserable for the rest of your vacation,"
+                      " just like, and thanks to, your fellow guests.")
+                prompt(gCont)
+            else:
+                print("The people here may be absolutely toxic, but why should that ruin your experience? You decide you aren't going to let a few bad apples ruin your opportunity to have a good time."
+                      " That's what you came here for, right? The words of others are certainly not going to stop you! You enjoy the rest of your vacation to full content.")
+                prompt(gCont)
+            tNPCs[0].Progress = -1 #This is how we will check for end games. Sh.
 ############
 ##reset
 ##Used to initialize data
@@ -685,12 +692,13 @@ def reset():
         p.Examined = False
     for p in tNPCs:
         p.Progress = 0
+    tLocations[pFrDesk.ID].Interactives.append("Bell")
     Pan.Name = "Pan"
     Pan.Score = 0
     Pan.Moves = 0
     Pan.iLocale = 0
     Pan.MovesUntilKey = 0
-    Pan.Inventory = []
+    Pan.Inventory.clear()
 #End reset
 
 ##########
@@ -728,13 +736,15 @@ sHelp = ("List of commands\n"
         "Help: Provides a list of valid commands. A dictionary must define a dictionary, right?\n"
         "Moves: List the amount of moves you have made so far. A move is generally defined as changing from one location to another, but it is not limited to that.\n"
         "Talk to: Used to interact with any people who may be in the area.\n"
-        "Use: Used to interact with things in the environment you are at.\n"
+        "Use: Allows you to interact with things in the environment you are at.\n"
         "Inventory: Lists any items you are currently holding.\n")
 def Game():
     bGame = True;
     while(bGame):
+        #Check if the game has ended
+        if tNPCs[0].Progress == -1: return
         #First, check if the player's key is ready
-        if tNPCs[pReceptionist.ID].Progress == 3 and Pan.Moves >= Pan.MovesUntilKey and not "Key" in Pan.Inventory:
+        if tNPCs[pReceptionist.ID].Progress == 3 and Pan.Moves >= Pan.MovesUntilKey and not "Room Key" in Pan.Inventory:
             tNPCs[pReceptionist.ID].Progress = 4
             print("Perhaps you should check back with the receptionist. Your key's gotta be ready by this point!")
         #print the location description, get a command from the player
