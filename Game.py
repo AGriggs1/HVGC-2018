@@ -10,8 +10,8 @@ gCont = "continue"
 Pan = Player()
 
 #Define Locales
-pParkingE = Locale(0, "You finally enter a parking space and get out of your car. You packed lightly, so you don't think you'll be needing the help of bellhop.", "You are in the parking lot",
-                   "There doesn't seem many cars around here. In fact, the only person around is the man that's talking to you right now. At least it won't be packed!",
+pParkingE = Locale(0, "You get your bearings straight. Now what? Perhaps you should check in.", "You are in the parking lot.",
+                   "There doesn't seem many people or cars around, besides you and yours. Is that a good thing?",
                    ["Your car"])
 pParkingW = Locale(1, "You begin walking down the parking lot, making your way towards the hotel entrance.", "You are in the parking lot", "Sunrise Hotel. It gives a nice tropical vibe, doesn't it? Too bad there's no beach nearby!",
                    [])
@@ -719,7 +719,16 @@ def Init():
     prompt(gCont)
     print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at the nice, but humble, Sunrise Hotel.\n")
     prompt(gCont)
-    
+    #Teach the player how to use examine
+    print("You finally pull up to a parking space and step out of your car. You 'examine' the area around you to get a feel of what to do next.\n")
+    while(input("(Type 'Examine' to get a description of the are you are at. This will reveal any people in the area, as well as where you can go from there.)\n").lower() != "examine"): pass
+    examine(Pan.iLocale)
+    print("Type either 'North', 'South', 'East', or 'West' to move in that direction")
+    prompt("understand")
+    print("Some locations may have things for you to use or NPCs to talk to. Type 'Use' or 'Talk to' to do so in each respect. You MUST examine a location first before you can do either!g")
+    prompt("understand")
+    print("Finally, type 'help' if you ever need to see the commands available to you. Have fun!")
+    prompt("begin\n")
     Game()
     return copyright(True)
 #End Init
