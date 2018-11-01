@@ -11,12 +11,14 @@ Pan = Player()
 
 #Define Locales
 pParkingE = Locale(0, "You finally enter a parking space and get out of your car. You packed lightly, so you don't think you'll be needing the help of bellhop.", "You are in the parking lot",
-                   "There doesn't seem many cars here. In fact, the only person around is the man that's talking to you right now. That seems like a good thing, right?",
+                   "There doesn't seem many cars around here. In fact, the only person around is the man that's talking to you right now. At least it won't be packed!",
                    ["Your car"])
 pParkingW = Locale(1, "You begin walking down the parking lot, making your way towards the hotel entrance.", "You are in the parking lot", "Sunrise Hotel. It gives a nice tropical vibe, doesn't it? Too bad there's no beach nearby!",
                    [])
 pEntrance = Locale(2, "You reach the entrance to the hotel. You are eager to check in and officially begin your time off.", "You are at the entrance of the hotel.", "", [])
-pLobby = Locale(3, "You enter the hotel lobby. Quaint.", "You are in the hotel lobby.", "Like its name, the lobby of the hotel is themed with a tropical mindset. It's a bit on the cheesy side, actually.",
+pLobby = Locale(3, "You enter the hotel lobby. Quaint.", "You are in the hotel lobby.", "Like its name, the lobby of the hotel is themed with a tropical mindset."
+                " There are couches with bright pink flora on them, and chairs to sit at. It's a bit on the cheesy side, actually. A magazine rack catches your attention: next to appears to be a map of the building."
+                "May you can have to look at that at some point if you need to get bearings straight, you think to yourself.",
                 ["Couch", "Magazines", "Hotel map"])
 pFrDesk = Locale(4, "You make your way towards the front desk, the base of which is painted with light-blue wave crests.", "You are at the front desk", "Looks like there's a bell to ring.",
                  ["Bell"])
@@ -27,8 +29,8 @@ pHallway = Locale(6, "You head down a hallway. Now what?", "You are in a hallway
 pRecRoom = Locale(7, "You enter what looks like to be rec room.", "You are in a rec room.", "Arcade machines line the wall. There is a pool table and lounge chairs litter the room. Cozy.", ["Arcade cabinent", "Pool table", "Lounge Chair"])
 pElevator = Locale(8, "You head down one of the intersections, and hey, look, an elevator!", "It's an elevator.", "A Latin tune is leaking from the speaker on the ceiling.", ["Elevator"])
 pPool = Locale(9, "You head outside and come to a pool.", "You are at the pool.", "Lounge Chairs litter the poolside. Very fitting, for once.", ["Pool, Lounge Chair"])
-pHotub = Locale(10, "You walk along the poolside and come to a hot tub.", "You are by the hot tub", "It looks very inviting, actually!", ["Hot tub"])
-pCabana = Locale(11, "You head towards what looks like a shop themed to be a Beach Cabana.", "You are at the cabana.", "It appears to be made out of straw and bamboo. A familiar Latin tune is blasting from the radio.", ["Table"])
+pHotub = Locale(10, "You walk along the poolside and come to a hot tub.", "You are by the hot tub", "It looks very inviting, actually! You'll have to take a dip sometime", ["Hot tub"])
+pCabana = Locale(11, "You head towards what looks like a shop themed to be a Beach Cabana.", "You are at the cabana.", "There tables around the area. The cabana itself appears to be made out of straw and bamboo. A familiar Latin tune is blasting from the radio.", ["Table"])
 pHallway2 = Locale(12, "You step out from the elevator, coming to the third floor hallway", "You are in a hallway",  "", [])
 pHallway3 = Locale(13, "You continue down the hallway.", "You are in a hallway", "", [])
 pHallway4 = Locale(14, "You continue down the hallway.", "You are in a hallway", "", [])
@@ -664,6 +666,15 @@ def use(sThing, iLocale):
         if sThing == "table":
             input("You sit down at one of the tables and relax.")
             Pan.Score += 5
+    elif iLocale == pBedroom.ID:
+        if sThing == "bed":
+            #End the game
+            Pan.Score += 5
+            print("You lay down on your bed, calling it day. You reflect back on your decision to stay here.")
+            prompt(cont)
+            if score <= moves:
+                print("Yeah, with the cheesy tropical vibe and toxic inhabitants, you can't have but feel stressed. This is supposed to be vacation! You're supposed to get away from all the nonsense of life,"
+                      "But the way the people of this hotel have acted serve you a harsh reminder that no matter where you go, the reality of life is sure to follow. You are miserable for the rest of your vacation.")
 ############
 ##reset
 ##Used to initialize data
@@ -696,9 +707,9 @@ def Init():
     tNPCs[6].iLocale = 5
     tNPCs[7].iLocale = 7
     prompt("begin")
-    print("\nIt's that time of year again. The sun's rays rain down on you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
+    print("\nIt's that time of year again. The sun's rays rain bombard you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
     prompt(gCont)
-    print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at the nice, but humble, Sunrise Hotel. Ah.\n")
+    print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at the nice, but humble, Sunrise Hotel.\n")
     prompt(gCont)
     
     Game()
