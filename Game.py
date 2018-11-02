@@ -465,8 +465,8 @@ def onDialogueEnd(iNPC):
         elif pNPC.Progress == 2:
             pNPC.Progress = 3
             #The receptionist is 'preparing the player's room' It will take 10 moves. Therefore, try to get to this point as quickly as possible
-            Pan.MovesUntilKey = Pan.Moves + 1
-            print(Pan.MovesUntilKey)
+            Pan.MovesUntilKey = Pan.Moves + 8
+            #print(Pan.MovesUntilKey)
         #Key is ready
         ##elif pNPC.Progress == 3 and Pan.Moves >= Pan.MovesUntilKey:
             #pNPC.Progress = 4
