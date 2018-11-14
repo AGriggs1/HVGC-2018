@@ -715,7 +715,7 @@ def Init():
     tNPCs[6].iLocale = 5
     tNPCs[7].iLocale = 7
     prompt("begin")
-    print("\nIt's that time of year again. The sun's rays rain bombard you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
+    print("\nIt's that time of year again. The sun's rays bombard you as you as pull into the parking lot, the air endowed with the summer scent. Vacation time.\n")
     prompt(gCont)
     print("You decided to keep things simple this year for once. Nothing too extravagent. Just an out-of town trip at the nice, but humble, Sunrise Hotel.\n")
     prompt(gCont)
@@ -757,7 +757,7 @@ def Game():
             tNPCs[pReceptionist.ID].Progress = 4
             print("Perhaps you should check back with the receptionist. Your key's gotta be ready by this point!")
         #print the location description, get a command from the player
-        sInput = input(tLocations[Pan.iLocale].GetDescription() + "\n").lower()
+        sInput = input(tLocations[Pan.iLocale].GetDescription() + "\nEnter a command: ").lower()
         tLocations[Pan.iLocale].UpdateVisited()
         #navigation commands
         if sInput == "north": move(NORTH)
@@ -795,7 +795,7 @@ def Game():
             print()
         #end elif
         elif sInput == "quit": bGame = False
-        
+        else print("That is not a valid command")
 
         
         
