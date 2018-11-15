@@ -725,7 +725,7 @@ def Init():
     examine(Pan.iLocale)
     print("Type either 'North', 'South', 'East', or 'West' to move in that direction")
     prompt("understand")
-    print("Some locations may have things for you to use or NPCs to talk to. Type 'Use' or 'Talk to' to do so in each respect. You MUST examine a location first before you can do either!g")
+    print("Some locations may have things for you to use or NPCs to talk to. Type 'Use' or 'Talk to' to do so in each respect. You MUST examine a location first before you can do either!")
     prompt("understand")
     print("Finally, type 'help' if you ever need to see the commands available to you. Have fun!")
     prompt("begin\n")
@@ -795,7 +795,7 @@ def Game():
             print()
         #end elif
         elif sInput == "quit": bGame = False
-        else print("That is not a valid command")
+        else: print("That is not a valid command")
 
         
         
